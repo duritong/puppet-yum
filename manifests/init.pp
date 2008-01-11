@@ -2,7 +2,7 @@
 # Copyright (C) 2007 admin@immerda.ch
 # 
 
-modules_dir { "centos_repos": }
+#modules_dir { "centos_repos": }
 
 class centos_repos {
 
