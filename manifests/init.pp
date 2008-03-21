@@ -80,7 +80,7 @@ class centos_repos {
 		
       yumrepo { rpmforge-rhel5:
       		descr => "RPMForge RHEL5 packages",
-          	baseurl => 'http://apt.sw.be/redhat/el$releasever/en/$basearch/dag',
+          	baseurl => 'http://wftp.tu-chemnitz.de/pub/linux/dag/redhat/el$releasever/en/$basearch/dag',
 	      	enabled => 1,
 		gpgcheck => 1,
 		gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag',
