@@ -1,10 +1,10 @@
-# modules/centos_repos/manifests/init.pp - manage centos_repos
+# modules/yum/manifests/init.pp - manage yum
 # Copyright (C) 2007 admin@immerda.ch
 # 
 
-#modules_dir { "centos_repos": }
+#modules_dir { "yum": }
 
-class centos_repos {
+class yum {
 
   # package stuff to prio
 
@@ -63,7 +63,7 @@ class centos_repos {
 	    #gpg key
 	    file {rpm_gpg: 
 		    path => "/etc/pki/rpm-gpg/",
-    		source => "puppet://$server/centos_repos/rpm-gpg/",
+    		source => "puppet://$server/yum/rpm-gpg/",
 	    	recurse => true,
 		    owner => root,
     		group => 0,
