@@ -193,3 +193,13 @@ class yum {
         ],
 	}
 }
+
+define yum::managed_yumrepo {
+    file{"/etc/yum.repos.d/${name}.repo":
+        ensure => file,
+        replace => false,
+        before => Yumrepo[$name],
+        mode => 0644, owner => root, group => 0;
+    }
+    
+}
