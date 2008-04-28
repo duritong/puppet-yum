@@ -16,7 +16,7 @@ class yum {
     case $operatingsystem {
         centos: {
             case $lsbdistrelease {
-                5: { include yum::centos::5 }
+                '5': { include yum::centos::5 }
                 default: { fail("no managed repo yet for this distro") }
             }
         }
