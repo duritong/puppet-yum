@@ -13,6 +13,14 @@ class yum {
         ensure => present
     }
 
+    service { yum-cron:
+        enable => true,
+        ensure => running,
+        hasstatus => true,
+        hasrestart => true,
+        require => Package[yum-cron],
+    }
+
     case $operatingsystem {
         centos: {
             case $lsbdistrelease {
