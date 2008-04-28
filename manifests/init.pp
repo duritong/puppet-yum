@@ -76,7 +76,7 @@ class yum::centos::5 {
 
 
     yum::managed_yumrepo { dlutter-rhel5:
-        descr => "Unsupported RHEL5 packages (lutter)",
+        descr => 'Unsupported RHEL5 packages (lutter)',
         baseurl => 'http://people.redhat.com/dlutter/yum/rhel/5/$basearch',
         enabled => 1,
         gpgcheck => 0,
@@ -92,7 +92,7 @@ class yum::centos::5 {
     }
 		
     yum::managed_yumrepo { rpmforge-rhel5:
-        descr => "RPMForge RHEL5 packages",
+        descr => 'RPMForge RHEL5 packages',
         baseurl => 'http://wftp.tu-chemnitz.de/pub/linux/dag/redhat/el$releasever/en/$basearch/dag',
 	    enabled => 1,
 		gpgcheck => 1,
@@ -100,7 +100,7 @@ class yum::centos::5 {
 	    priority => 30,
 	}
 	yum::managed_yumrepo {centos5-atrpms:
-	    descr => "CentOS $releasever - $basearch - ATrpms",
+	    descr => 'CentOS $releasever - $basearch - ATrpms',
         baseurl => 'http://dl.atrpms.net/el$releasever-$basearch/atrpms/stable',
 	    enabled => 1,
 		gpgcheck => 0,
@@ -108,7 +108,7 @@ class yum::centos::5 {
 	    priority => 30,
     }
 	yum::managed_yumrepo { centos5-plus:
-	    descr => "CentOS-$releasever - Plus",
+	    descr => 'CentOS-$releasever - Plus',
         mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus',
 	    enabled => 1,
     	gpgcheck => 1,
@@ -116,7 +116,7 @@ class yum::centos::5 {
 		priority => 15,
 	}
     yum::managed_yumrepo { epel:
-	    descr => "Extra Packages for Enterprise Linux $releasever - $basearch",
+	    descr => 'Extra Packages for Enterprise Linux $releasever - $basearch',
         mirrorlist => 'http://mirrors.fedoraproject.org/mirrorlist?repo=epel-$releasever&arch=$basearch',
 	    enabled => 1,
 		gpgcheck => 1,
@@ -124,7 +124,7 @@ class yum::centos::5 {
 	    priority => 16,
     }
 	yum::managed_yumrepo { epel-debuginfo:
-	    descr => "Extra Packages for Enterprise Linux $releasever - $basearch - Debug",
+	    descr => 'Extra Packages for Enterprise Linux $releasever - $basearch - Debug',
         mirrorlist => 'http://mirrors.fedoraproject.org/mirrorlist?repo=epel-$releasever&arch=$basearch',
 	    enabled => 1,
     	gpgcheck => 1,
@@ -132,7 +132,7 @@ class yum::centos::5 {
 		priority => 16,
     }
     yum::managed_yumrepo { epel-source:
-	    descr => "Extra Packages for Enterprise Linux $releasever - $basearch - Source",
+	    descr => 'Extra Packages for Enterprise Linux $releasever - $basearch - Source',
         mirrorlist => 'http://mirrors.fedoraproject.org/mirrorlist?repo=epel-source-$releasever&arch=$basearch',
 	    enabled => 1,
     	gpgcheck => 1,
@@ -141,7 +141,7 @@ class yum::centos::5 {
     	priority => 16,
     }
 	yum::managed_yumrepo { epel-testing:
-	    descr => "Extra Packages for Enterprise Linux $releasever - Testing - $basearch",
+	    descr => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch',
         baseurl => 'http://download.fedora.redhat.com/pub/epel/testing/$releasever/$basearch',
 	    enabled => 1,
     	gpgcheck => 1,
@@ -149,7 +149,7 @@ class yum::centos::5 {
 		priority => 17,
     }
     yum::managed_yumrepo { epel-testing-debuginfo:
-	    descr => "Extra Packages for Enterprise Linux $releasever - Testing - $basearch - Debug",
+	    descr => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch - Debug',
         baseurl => 'http://download.fedora.redhat.com/pub/epel/testing/$releasever/$basearch/debug',
 	    enabled => 1,
     	gpgcheck => 1,
@@ -157,7 +157,7 @@ class yum::centos::5 {
 		priority => 17,
     }
 	yum::managed_yumrepo { epel-testing-source:
-	    descr => "Extra Packages for Enterprise Linux $releasever - Testing - $basearch - Source",
+	    descr => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch - Source',
         baseurl => 'http://download.fedora.redhat.com/pub/epel/testing/$releasever/SRPMS',
     	enabled => 1,
 		gpgcheck => 1,
@@ -166,7 +166,7 @@ class yum::centos::5 {
 		priority => 17,
     }
 	yum::managed_yumrepo { kbs-CentOS-Extras:
-	    descr => "CentOS.Karan.Org-EL$releasever - Stable",
+	    descr => 'CentOS.Karan.Org-EL$releasever - Stable',
         baseurl => 'http://centos.karan.org/el$releasever/extras/stable/$basearch/RPMS/',
 	    enabled => 1,
 		gpgcheck => 1,
@@ -174,7 +174,7 @@ class yum::centos::5 {
 	    priority => 20,
     }
 	yum::managed_yumrepo { kbs-CentOS-Extras-Testing:
-	    descr => "CentOS.Karan.Org-EL$releasever - Testing",
+	    descr => 'CentOS.Karan.Org-EL$releasever - Testing',
         baseurl => 'http://centos.karan.org/el$releasever/extras/testing/$basearch/RPMS/',
 	    enabled => 1,
     	gpgcheck => 1,
@@ -182,7 +182,7 @@ class yum::centos::5 {
 		priority => 20,
 	}
     yum::managed_yumrepo { kbs-CentOS-Misc:
-	    descr => "CentOS.Karan.Org-EL$releasever - Stable",
+	    descr => 'CentOS.Karan.Org-EL$releasever - Stable',
         baseurl => 'http://centos.karan.org/el$releasever/misc/stable/$basearch/RPMS/',
 	    enabled => 1,
 		gpgcheck => 1,
@@ -190,7 +190,7 @@ class yum::centos::5 {
 	    priority => 20,
     }
     yum::managed_yumrepo { kbs-CentOS-Misc-Testing:
-	    descr => "CentOS.Karan.Org-EL$releasever - Testing",
+	    descr => 'CentOS.Karan.Org-EL$releasever - Testing',
         baseurl => 'http://centos.karan.org/el$releasever/misc/testing/$basearch/RPMS/',
 	    enabled => 1,
 		gpgcheck => 1,
@@ -205,7 +205,7 @@ class yum::prerequisites {
     } 
 
     file{yum_repos_d:
-        path => "/etc/yum.repos.d/",
+        path => '/etc/yum.repos.d/',
         source => "puppet://$server/yum/empty",
         ensure => directory,
         recurse => true,
@@ -214,7 +214,7 @@ class yum::prerequisites {
     }
     #gpg key
 	file {rpm_gpg: 
-	    path => "/etc/pki/rpm-gpg/",
+	    path => '/etc/pki/rpm-gpg/',
         source => "puppet://$server/yum/${operatingsystem}.${lsbdistrelease}/rpm-gpg/",
 	    recurse => true,
         purge => true,
