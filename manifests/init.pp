@@ -231,6 +231,7 @@ define yum::managed_yumrepo (
     $enabled = 0,
     $gpgcheck = 0,
     $gpgkey = 'absent', 
+    $failovermethos = 'absent',
     $priority = 99){
 
     # ensure that everything is setup
