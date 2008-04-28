@@ -16,7 +16,7 @@ class yum {
     case $operatingsystem {
         centos: {
             case $lsbdistrelease {
-                '5': { include yum::centos::5 }
+                5: { include yum::centos::five }
                 default: { fail("no managed repo yet for this distro") }
             }
         }
@@ -24,7 +24,7 @@ class yum {
     }
 }
 
-class yum::centos::5 {
+class yum::centos::five {
     yum::managed_yumrepo {base:
         descr => 'CentOS-$releasever - Base',
         mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os',
