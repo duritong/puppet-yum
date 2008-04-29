@@ -82,9 +82,9 @@ class yum::centos::five {
         priority => 10,
     }
 
-    yum::managed_yumrepo {contrib:
-        descr => 'CentOS-$releasever - Contrib',
-        mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=contrib',
+    yum::managed_yumrepo {fasttrack:
+        descr => 'CentOS-$releasever - Fasttrack',
+        mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=fasttrack',
         enabled => 1,
         gpgcheck => 1,
         gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5',
