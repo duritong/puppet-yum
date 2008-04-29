@@ -266,6 +266,7 @@ define yum::managed_yumrepo (
     yumrepo{$name:
         descr => $descr,
         baseurl => $baseurl, 
+        mirrorlist => $mirrorlist,
         enabled => $enabled,
         gpgcheck => $gpgcheck,
         gpgkey => $gpgkey, 
