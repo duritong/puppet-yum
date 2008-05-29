@@ -1,11 +1,10 @@
 # modules/yum/manifests/init.pp - manage yum
 # Copyright (C) 2007 admin@immerda.ch
 # GPLv3
+# Adapted by Puzzle ITC - haerry+puppet(at)puzzle.ch
 # 
 
 #modules_dir { "yum": }
-
-
 
 class yum {
     # autoupdate
@@ -72,20 +71,27 @@ class yum::centos::five {
         priority => 1,
     }
 
-
     yum::managed_yumrepo {centosplus:
         descr => 'CentOS-$releasever - Centosplus',
         mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus',
         enabled => 1,
         gpgcheck => 1,
         gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5',
-        priority => 10,
+        priority => 1,
     }
 
-    yum::managed_yumrepo {fasttrack:
-        descr => 'CentOS-$releasever - Fasttrack',
-        mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=fasttrack',
+    yum::managed_yumrepo {'rubyworks':
+        descr => 'Rubyworks for better Ruby stuff',
+        baseurl => 'http://rubyworks.rubyforge.org/redhat/$releasever/RPMS/$basearch',
         enabled => 1,
+        gpgcheck => 1,
+        gpgkey => 'file:///etc/pki/rpm-gpg/RubyWorks.GPG.key', 
+        priority => 1,
+    }
+
+    yum::managed_yumrepo {contrib:
+        descr => 'CentOS-$releasever - Contrib',
+        mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=contrib',
         gpgcheck => 1,
         gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5',
         priority => 10,
@@ -107,7 +113,7 @@ class yum::centos::five {
         gpgcheck => 0,
         priority => 15,
     }
-		
+
     yum::managed_yumrepo { rpmforge-rhel5:
         descr => 'RPMForge RHEL5 packages',
         baseurl => 'http://wftp.tu-chemnitz.de/pub/linux/dag/redhat/el$releasever/en/$basearch/dag',
@@ -119,7 +125,7 @@ class yum::centos::five {
 	yum::managed_yumrepo {centos5-atrpms:
 	    descr => 'CentOS $releasever - $basearch - ATrpms',
         baseurl => 'http://dl.atrpms.net/el$releasever-$basearch/atrpms/stable',
-	    enabled => 0,
+	    enabled => 1,
 		gpgcheck => 0,
     	gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY.atrpms',
 	    priority => 30,
@@ -221,6 +227,7 @@ class yum::prerequisites {
         ensure => present,
     } 
 
+	# ensure there are no other repos
     file{yum_repos_d:
         path => '/etc/yum.repos.d/',
         source => "puppet://$server/yum/empty",
