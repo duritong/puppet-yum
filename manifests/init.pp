@@ -1,8 +1,16 @@
-# modules/yum/manifests/init.pp - manage yum
-# Copyright (C) 2007 admin@immerda.ch
-# GPLv3
-# Adapted by Puzzle ITC - haerry+puppet(at)puzzle.ch
-# 
+#
+# yum module
+#
+# Copyright 2008, admin(at)immerda.ch
+# Copyright 2008, Puzzle ITC GmbH
+# Marcel Härry haerry+puppet(at)puzzle.ch
+# Simon Josi josi+puppet(at)puzzle.ch
+#
+# This program is free software; you can redistribute 
+# it and/or modify it under the terms of the GNU 
+# General Public License version 3 as published by 
+# the Free Software Foundation.
+#
 
 #modules_dir { "yum": }
 
@@ -234,6 +242,7 @@ class yum::prerequisites {
         ensure => directory,
         recurse => true,
         purge => true,
+        require =>  Package[yum-priorities],
         mode => 0755, owner => root, group => 0;
     }
     #gpg key
@@ -266,7 +275,9 @@ define yum::managed_yumrepo (
         ensure => file,
         replace => false,
         before => Yumrepo[$name],
-        require => File[yum_repos_d],
+        require => [ File[yum_repos_d],
+             Package[yum-priorities]
+        ],
         mode => 0644, owner => root, group => 0;
     }
 
