@@ -85,7 +85,7 @@ class yum::centos::five {
         enabled => 1,
         gpgcheck => 1,
         gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5',
-        priority => 1,
+        priority => 2,
     }
 
     yum::managed_yumrepo {'rubyworks':
