@@ -185,7 +185,7 @@ class yum::centos::five {
     }
     yum::managed_yumrepo { epel-testing-debuginfo:
 	    descr => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch - Debug',
-        mirrorlist => 'http://mirrors.fedoraproject.org/mirrorlist?repo=testing-debug-epel5&arch=$basearch'
+        mirrorlist => 'http://mirrors.fedoraproject.org/mirrorlist?repo=testing-debug-epel5&arch=$basearch',
 	    enabled => 1,
     	gpgcheck => 1,
         failovermethod => 'priority',
