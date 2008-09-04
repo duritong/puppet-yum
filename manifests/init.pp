@@ -235,17 +235,6 @@ class yum::centos::five {
 	}
 }
 
-class yum::utterramblings {
-    yum::managed_yumrepo { utterramblings:
-        descr => 'Jason\'s Utter Ramblings Repo',
-        baseurl => 'http://www.jasonlitka.com/media/EL$releasever/$basearch/',
-        enabled => 1,
-        gpgcheck => 1,
-        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-jlitka',
-	    priority => 1,
-    }
-}
-
 class yum::prerequisites {
     package{yum-priorities:
         ensure => present,
