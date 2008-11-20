@@ -40,6 +40,9 @@ class yum {
         }
         default: { fail("no managed repo yet for this distro") }
     }
+    if $use_munin {
+        include yum::munin
+    }
 }
 
 class yum::centos::five {
@@ -106,9 +109,9 @@ class yum::centos::five {
     }
 
 
-    yum::managed_yumrepo { dlutter-rhel5:
+    yum::managed_yumrepo { dlutter-rhel:
         descr => 'Unsupported RHEL5 packages (lutter)',
-        baseurl => 'http://people.redhat.com/dlutter/yum/rhel/5/$basearch',
+        baseurl => 'http://people.redhat.com/dlutter/yum/rhel/$releasever/$basearch',
         enabled => 1,
         gpgcheck => 0,
         priority => 15,
@@ -177,7 +180,7 @@ class yum::centos::five {
 	yum::managed_yumrepo { epel-testing:
 	    descr => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch',
         mirrorlist => 'http://mirrors.fedoraproject.org/mirrorlist?repo=testing-epel5&arch=$basearch',
-	    enabled => 1,
+	    enabled => 0,
     	gpgcheck => 1,
         failovermethod => 'priority',
 	    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL',
@@ -186,7 +189,7 @@ class yum::centos::five {
     yum::managed_yumrepo { epel-testing-debuginfo:
 	    descr => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch - Debug',
         mirrorlist => 'http://mirrors.fedoraproject.org/mirrorlist?repo=testing-debug-epel5&arch=$basearch',
-	    enabled => 1,
+	    enabled => 0,
     	gpgcheck => 1,
         failovermethod => 'priority',
 	    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL',
@@ -195,7 +198,7 @@ class yum::centos::five {
 	yum::managed_yumrepo { epel-testing-source:
 	    descr => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch - Source',
         mirrorlist => 'http://mirrors.fedoraproject.org/mirrorlist?repo=testing-source-epel5&arch=$basearch',
-    	enabled => 1,
+    	enabled => 0,
 		gpgcheck => 1,
 		failovermethod => priority,
 	    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL',
@@ -212,7 +215,7 @@ class yum::centos::five {
 	yum::managed_yumrepo { kbs-CentOS-Extras-Testing:
 	    descr => 'CentOS.Karan.Org-EL$releasever - Testing',
         baseurl => 'http://centos.karan.org/el$releasever/extras/testing/$basearch/RPMS/',
-	    enabled => 1,
+	    enabled => 0,
     	gpgcheck => 1,
 	    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kbsingh',
 		priority => 20,
@@ -228,7 +231,7 @@ class yum::centos::five {
     yum::managed_yumrepo { kbs-CentOS-Misc-Testing:
 	    descr => 'CentOS.Karan.Org-EL$releasever - Testing',
         baseurl => 'http://centos.karan.org/el$releasever/misc/testing/$basearch/RPMS/',
-	    enabled => 1,
+	    enabled => 0,
 		gpgcheck => 1,
     	gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kbsingh',
 	    priority => 20,
@@ -242,6 +245,36 @@ class yum::remi {
         enabled => 1,
         gpgcheck => 1,
         gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi',
+        priority => 1,
+    }
+}
+
+class yum::jpackage {
+    yum::managed_yumrepo { 'jpackage-generic':
+        descr => 'JPackage (free), generic',
+        mirrorlist => 'http://www.jpackage.org/jpackage_generic_1.7.txt',
+        failovermethod => 'priority',
+        gpgcheck => 1,
+        gpgkey => 'http://www.jpackage.org/jpackage.asc',
+        enabled => 1,
+        priority => 1,
+    }
+    yum::managed_yumrepo { 'jpackage-rhel':
+        descr => 'JPackage (free) for Red Hat Enterprise Linux $releasever',
+        mirrorlist => "http://www.jpackage.org/jpackage_rhel-${lsbmajdistrelease}_1.7.txt",
+        failovermethod => 'priority',
+        gpgcheck => 1,
+        gpgkey => 'http://www.jpackage.org/jpackage.asc',
+        enabled => 1,
+        priority => 1,
+    }
+    yum::managed_yumrepo { 'jpackage-generic-nonfree':
+        descr => 'JPackage (non-free), generic',
+        mirrorlist => 'http://www.jpackage.org/jpackage_generic_nonfree_1.7.txt',
+        failovermethod => 'priority',
+        gpgcheck => 1,
+        gpgkey => 'http://www.jpackage.org/jpackage.asc',
+        enabled => 1,
         priority => 1,
     }
 }

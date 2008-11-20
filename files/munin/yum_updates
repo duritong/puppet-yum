@@ -1,0 +1,27 @@
+#!/bin/sh
+# Written by Marcel Haerry haerry(at)puzzle.ch
+# Puzzle ITC - puzzle.ch
+# GPLv3 or later
+
+case $1 in
+   config)
+        cat <<'EOM'
+graph_title Yum update - Pending packages
+graph_vlabel yum
+yum.label pending_packages
+graph_category system
+yum.warning 25
+yum.critical 50
+graph_info This plugins Monitors the current pending packages. You have to deploy a cronjob for that.
+yum.info Currently pending packages
+EOM
+        exit 0;;
+esac
+
+echo -n "yum.value "
+if [ -e /var/lib/munin/plugin-state/yum_update.state ]; then
+        cat /var/lib/munin/plugin-state/yum_update.state
+else
+        echo -1
+fi
+
