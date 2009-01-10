@@ -94,7 +94,7 @@ class yum::centos::five {
     yum::managed_yumrepo {'rubyworks':
         descr => 'Rubyworks for better Ruby stuff',
         baseurl => 'http://rubyworks.rubyforge.org/redhat/$releasever/RPMS/$basearch',
-        enabled => 1,
+        enabled => 0,
         gpgcheck => 1,
         gpgkey => 'file:///etc/pki/rpm-gpg/RubyWorks.GPG.key', 
         priority => 1,
