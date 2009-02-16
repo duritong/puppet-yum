@@ -108,23 +108,6 @@ class yum::centos::five {
         priority => 10,
     }
 
-
-    yum::managed_yumrepo { dlutter-rhel:
-        descr => 'Unsupported RHEL5 packages (lutter)',
-        baseurl => 'http://people.redhat.com/dlutter/yum/rhel/$releasever/$basearch',
-        enabled => 1,
-        gpgcheck => 0,
-        priority => 15,
-    }
-
-    yum::managed_yumrepo { dlutter-source:
-        descr => 'Sources for additional test packages (lutter)',
-        baseurl => 'http://people.redhat.com/dlutter/yum/SRPMS/',
-        enabled => 1,
-        gpgcheck => 0,
-        priority => 15,
-    }
-
     yum::managed_yumrepo { rpmforge-rhel5:
         descr => 'RPMForge RHEL5 packages',
         baseurl => 'http://wftp.tu-chemnitz.de/pub/linux/dag/redhat/el$releasever/en/$basearch/dag',
