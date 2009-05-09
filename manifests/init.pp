@@ -6,13 +6,11 @@
 # Marcel Härry haerry+puppet(at)puzzle.ch
 # Simon Josi josi+puppet(at)puzzle.ch
 #
-# This program is free software; you can redistribute 
-# it and/or modify it under the terms of the GNU 
-# General Public License version 3 as published by 
+# This program is free software; you can redistribute
+# it and/or modify it under the terms of the GNU
+# General Public License version 3 as published by
 # the Free Software Foundation.
 #
-
-#modules_dir { "yum": }
 
 class yum {
     # autoupdate
@@ -32,7 +30,7 @@ class yum {
         centos: {
             case $lsbdistrelease {
                 5: { include yum::centos::five }
-                default: { 
+                default: {
                     info("no class for this version yet defined, try to configure it with the version for 5")
                     include yum::centos::five
                 }
@@ -96,7 +94,7 @@ class yum::centos::five {
         baseurl => 'http://rubyworks.rubyforge.org/redhat/$releasever/RPMS/$basearch',
         enabled => 0,
         gpgcheck => 1,
-        gpgkey => 'file:///etc/pki/rpm-gpg/RubyWorks.GPG.key', 
+        gpgkey => 'file:///etc/pki/rpm-gpg/RubyWorks.GPG.key',
         priority => 1,
     }
 
@@ -111,114 +109,114 @@ class yum::centos::five {
     yum::managed_yumrepo { rpmforge-rhel5:
         descr => 'RPMForge RHEL5 packages',
         baseurl => 'http://wftp.tu-chemnitz.de/pub/linux/dag/redhat/el$releasever/en/$basearch/dag',
-	    enabled => 1,
-		gpgcheck => 1,
-    	gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag',
-	    priority => 30,
-	}
-	yum::managed_yumrepo {centos5-atrpms:
-	    descr => 'CentOS $releasever - $basearch - ATrpms',
+        enabled => 1,
+        gpgcheck => 1,
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag',
+        priority => 30,
+    }
+    yum::managed_yumrepo {centos5-atrpms:
+        descr => 'CentOS $releasever - $basearch - ATrpms',
         baseurl => 'http://dl.atrpms.net/el$releasever-$basearch/atrpms/stable',
-	    enabled => 1,
-		gpgcheck => 0,
-    	gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY.atrpms',
-	    priority => 30,
+        enabled => 1,
+        gpgcheck => 0,
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY.atrpms',
+        priority => 30,
     }
-	yum::managed_yumrepo { centos5-plus:
-	    descr => 'CentOS-$releasever - Plus',
+    yum::managed_yumrepo { centos5-plus:
+        descr => 'CentOS-$releasever - Plus',
         mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus',
-	    enabled => 1,
-    	gpgcheck => 1,
-	    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever',
-		priority => 15,
-	}
-    yum::managed_yumrepo { epel:
-	    descr => 'Extra Packages for Enterprise Linux $releasever - $basearch',
-        mirrorlist => 'http://mirrors.fedoraproject.org/mirrorlist?repo=epel-$releasever&arch=$basearch',
-	    enabled => 1,
-		gpgcheck => 1,
-        failovermethod => 'priority',
-    	gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL',
-	    priority => 16,
+        enabled => 1,
+        gpgcheck => 1,
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever',
+        priority => 15,
     }
-	yum::managed_yumrepo { epel-debuginfo:
-	    descr => 'Extra Packages for Enterprise Linux $releasever - $basearch - Debug',
+    yum::managed_yumrepo { epel:
+        descr => 'Extra Packages for Enterprise Linux $releasever - $basearch',
         mirrorlist => 'http://mirrors.fedoraproject.org/mirrorlist?repo=epel-$releasever&arch=$basearch',
-	    enabled => 1,
-    	gpgcheck => 1,
+        enabled => 1,
+        gpgcheck => 1,
         failovermethod => 'priority',
-	    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL',
-		priority => 16,
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL',
+        priority => 16,
+    }
+    yum::managed_yumrepo { epel-debuginfo:
+        descr => 'Extra Packages for Enterprise Linux $releasever - $basearch - Debug',
+        mirrorlist => 'http://mirrors.fedoraproject.org/mirrorlist?repo=epel-$releasever&arch=$basearch',
+        enabled => 1,
+        gpgcheck => 1,
+        failovermethod => 'priority',
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL',
+        priority => 16,
     }
     yum::managed_yumrepo { epel-source:
-	    descr => 'Extra Packages for Enterprise Linux $releasever - $basearch - Source',
+        descr => 'Extra Packages for Enterprise Linux $releasever - $basearch - Source',
         mirrorlist => 'http://mirrors.fedoraproject.org/mirrorlist?repo=epel-source-$releasever&arch=$basearch',
-	    enabled => 1,
-    	gpgcheck => 1,
-	    failovermethod => priority,
+        enabled => 1,
+        gpgcheck => 1,
+        failovermethod => priority,
         failovermethod => 'priority',
-		gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL',
-    	priority => 16,
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL',
+        priority => 16,
     }
-	yum::managed_yumrepo { epel-testing:
-	    descr => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch',
+    yum::managed_yumrepo { epel-testing:
+        descr => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch',
         mirrorlist => 'http://mirrors.fedoraproject.org/mirrorlist?repo=testing-epel5&arch=$basearch',
-	    enabled => 0,
-    	gpgcheck => 1,
+        enabled => 0,
+        gpgcheck => 1,
         failovermethod => 'priority',
-	    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL',
-		priority => 17,
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL',
+        priority => 17,
     }
     yum::managed_yumrepo { epel-testing-debuginfo:
-	    descr => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch - Debug',
+        descr => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch - Debug',
         mirrorlist => 'http://mirrors.fedoraproject.org/mirrorlist?repo=testing-debug-epel5&arch=$basearch',
-	    enabled => 0,
-    	gpgcheck => 1,
+        enabled => 0,
+        gpgcheck => 1,
         failovermethod => 'priority',
-	    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL',
-		priority => 17,
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL',
+        priority => 17,
     }
-	yum::managed_yumrepo { epel-testing-source:
-	    descr => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch - Source',
+    yum::managed_yumrepo { epel-testing-source:
+        descr => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch - Source',
         mirrorlist => 'http://mirrors.fedoraproject.org/mirrorlist?repo=testing-source-epel5&arch=$basearch',
-    	enabled => 0,
-		gpgcheck => 1,
-		failovermethod => priority,
-	    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL',
-		priority => 17,
+        enabled => 0,
+        gpgcheck => 1,
+        failovermethod => priority,
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL',
+        priority => 17,
     }
-	yum::managed_yumrepo { kbs-CentOS-Extras:
-	    descr => 'CentOS.Karan.Org-EL$releasever - Stable',
+    yum::managed_yumrepo { kbs-CentOS-Extras:
+        descr => 'CentOS.Karan.Org-EL$releasever - Stable',
         baseurl => 'http://centos.karan.org/el$releasever/extras/stable/$basearch/RPMS/',
-	    enabled => 1,
-		gpgcheck => 1,
-    	gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kbsingh',
-	    priority => 20,
+        enabled => 1,
+        gpgcheck => 1,
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kbsingh',
+        priority => 20,
     }
-	yum::managed_yumrepo { kbs-CentOS-Extras-Testing:
-	    descr => 'CentOS.Karan.Org-EL$releasever - Testing',
+    yum::managed_yumrepo { kbs-CentOS-Extras-Testing:
+        descr => 'CentOS.Karan.Org-EL$releasever - Testing',
         baseurl => 'http://centos.karan.org/el$releasever/extras/testing/$basearch/RPMS/',
-	    enabled => 0,
-    	gpgcheck => 1,
-	    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kbsingh',
-		priority => 20,
-	}
+        enabled => 0,
+        gpgcheck => 1,
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kbsingh',
+        priority => 20,
+    }
     yum::managed_yumrepo { kbs-CentOS-Misc:
-	    descr => 'CentOS.Karan.Org-EL$releasever - Stable',
+        descr => 'CentOS.Karan.Org-EL$releasever - Stable',
         baseurl => 'http://centos.karan.org/el$releasever/misc/stable/$basearch/RPMS/',
-	    enabled => 1,
-		gpgcheck => 1,
-    	gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kbsingh',
-	    priority => 20,
+        enabled => 1,
+        gpgcheck => 1,
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kbsingh',
+        priority => 20,
     }
     yum::managed_yumrepo { kbs-CentOS-Misc-Testing:
-	    descr => 'CentOS.Karan.Org-EL$releasever - Testing',
+        descr => 'CentOS.Karan.Org-EL$releasever - Testing',
         baseurl => 'http://centos.karan.org/el$releasever/misc/testing/$basearch/RPMS/',
-	    enabled => 0,
-		gpgcheck => 1,
-    	gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kbsingh',
-	    priority => 20,
-	}
+        enabled => 0,
+        gpgcheck => 1,
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kbsingh',
+        priority => 20,
+    }
 }
 
 class yum::remi {
@@ -265,9 +263,9 @@ class yum::jpackage {
 class yum::prerequisites {
     package{yum-priorities:
         ensure => present,
-    } 
+    }
 
-	# ensure there are no other repos
+    # ensure there are no other repos
     file{yum_repos_d:
         path => '/etc/yum.repos.d/',
         source => "puppet://$server/yum/empty",
@@ -279,31 +277,31 @@ class yum::prerequisites {
         mode => 0755, owner => root, group => 0;
     }
     #gpg key
-	file {rpm_gpg: 
-	    path => '/etc/pki/rpm-gpg/',
+    file {rpm_gpg:
+        path => '/etc/pki/rpm-gpg/',
         source => [ "puppet://$server/yum/${operatingsystem}.${lsbdistrelease}/rpm-gpg/",
                     "puppet://$server/yum/CentOS.5/rpm-gpg/" ],
-	    recurse => true,
+        recurse => true,
         purge => true,
-		owner => root,
-    	group => 0,
-	    mode => '600',
+        owner => root,
+        group => 0,
+        mode => '600',
     }
 }
 
 define yum::managed_yumrepo (
     $descr = 'absent',
-    $baseurl = 'absent', 
+    $baseurl = 'absent',
     $mirrorlist = 'absent',
     $enabled = 0,
     $gpgcheck = 0,
-    $gpgkey = 'absent', 
+    $gpgkey = 'absent',
     $failovermethod = 'absent',
     $priority = 99){
 
     # ensure that everything is setup
     include yum::prerequisites
-    
+
     file{"/etc/yum.repos.d/${name}.repo":
         ensure => file,
         replace => false,
@@ -316,17 +314,17 @@ define yum::managed_yumrepo (
 
     yumrepo{$name:
         descr => $descr,
-        baseurl => $baseurl, 
+        baseurl => $baseurl,
         mirrorlist => $mirrorlist,
         enabled => $enabled,
         gpgcheck => $gpgcheck,
-        gpgkey => $gpgkey, 
+        gpgkey => $gpgkey,
         failovermethod => $failovermethod,
         priority => $priority,
         require => [ File[rpm_gpg],
             Package[yum-priorities]
         ],
-    }    
+    }
 }
 
 # manifests/updatesd.pp
