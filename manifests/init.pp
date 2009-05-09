@@ -153,7 +153,6 @@ class yum::centos::five {
         mirrorlist => 'http://mirrors.fedoraproject.org/mirrorlist?repo=epel-source-$releasever&arch=$basearch',
         enabled => 1,
         gpgcheck => 1,
-        failovermethod => priority,
         failovermethod => 'priority',
         gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL',
         priority => 16,
