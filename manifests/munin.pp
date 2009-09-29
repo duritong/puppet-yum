@@ -16,7 +16,7 @@ class yum::munin {
         require => File['/var/lib/munin/yum_updates.py'],
         owner => root, group => 0, mode => 0755;
     }
-    munin::plugin::deploy{'yum_updates':
+    ::munin::plugin::deploy{'yum_updates':
         source => 'yum/munin/yum_updates',
     }
 }
