@@ -3,7 +3,7 @@ class yum::centos::testing {
       '': { fail('Please configure $yum_centos_testing_include_pkgs as we run the testing repo with highest repository') }
     }
     case $yum_centos_testing_exclude_pkgs {
-      '': { $yum_centos_testing_exclude_pkgs = 'absent'
+      '': { $yum_centos_testing_exclude_pkgs = 'absent' }
     }
     yum::managed_yumrepo{'centos5-testing':
         descr => 'CentOS-$releasever - Testing',
