@@ -6,7 +6,9 @@ define yum::managed_yumrepo (
     $gpgcheck = 0,
     $gpgkey = 'absent',
     $failovermethod = 'absent',
-    $priority = 99){
+    $priority = 99,
+    $exclude = 'absent',
+    $includepkgs = 'absent') {
 
     # ensure that everything is setup
     include ::yum::prerequisites
@@ -30,6 +32,8 @@ define yum::managed_yumrepo (
         gpgkey => $gpgkey,
         failovermethod => $failovermethod,
         priority => $priority,
+        exclude => $exclude,
+        includepkgs => $includepkgs,
         require => [ File[rpm_gpg],
             Package[yum-priorities]
         ],
