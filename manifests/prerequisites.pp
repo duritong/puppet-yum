@@ -17,7 +17,7 @@ class yum::prerequisites {
     #gpg key
     file {rpm_gpg:
         path => '/etc/pki/rpm-gpg/',
-        source => [ "puppet://$server/modules/yum/${operatingsystem}.${lsbdistrelease}/rpm-gpg/",
+        source => [ "puppet://$server/modules/yum/${operatingsystem}.${lsbmajdistrelease}/rpm-gpg/",
                     "puppet://$server/modules/yum/CentOS.5/rpm-gpg/" ],
         recurse => true,
         purge => true,
