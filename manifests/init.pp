@@ -28,7 +28,7 @@ class yum {
 
     case $operatingsystem {
         centos: {
-            case $lsbdistrelease {
+            case $lsbmajdistrelease {
                 5: { include yum::centos::five }
                 default: {
                     info("no class for this version yet defined, try to configure it with the version for 5")
