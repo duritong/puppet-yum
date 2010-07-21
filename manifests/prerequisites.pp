@@ -6,7 +6,7 @@ class yum::prerequisites {
     # ensure there are no other repos
     file{yum_repos_d:
         path => '/etc/yum.repos.d/',
-        source => "puppet://$server/modules/yum/empty",
+        source => "puppet://$server/modules/common/empty",
         ensure => directory,
         recurse => true,
         purge => true,
