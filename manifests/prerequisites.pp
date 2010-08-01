@@ -10,7 +10,8 @@ class yum::prerequisites {
         ensure => directory,
         recurse => true,
         purge => true,
-        ignore => '\.ignore',
+        force => true,
+        ignore => '.ignore',
         require =>  Package[yum-priorities],
         mode => 0755, owner => root, group => 0;
     }
