@@ -44,15 +44,6 @@ class yum::centos::five {
         priority => 2,
     }
 
-    yum::managed_yumrepo {'rubyworks':
-        descr => 'Rubyworks for better Ruby stuff',
-        baseurl => 'http://rubyworks.rubyforge.org/redhat/$releasever/RPMS/$basearch',
-        enabled => 0,
-        gpgcheck => 1,
-        gpgkey => 'file:///etc/pki/rpm-gpg/RubyWorks.GPG.key',
-        priority => 1,
-    }
-
     yum::managed_yumrepo {contrib:
         descr => 'CentOS-$releasever - Contrib',
         mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=contrib',
