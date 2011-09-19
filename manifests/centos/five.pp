@@ -162,4 +162,14 @@ class yum::centos::five {
         gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kbsingh',
         priority => 20,
     }
+
+    # sometimes yum-cron does not clean up things properly on EL5,
+    # so we enforce some cleanup here
+    tidy { "/var/lock":
+      age => "2d",
+      recurse => 1,
+      matches => [ "yum-cron.lock" ],
+      rmdirs => true,
+      type => ctime,
+    }
 }
