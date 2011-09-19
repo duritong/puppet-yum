@@ -26,6 +26,15 @@ class yum {
         require => Package[yum-cron],
     }
 
+    tidy { "/var/lock":
+      age => "2d",
+      recurse => 1,
+      matches => [ "yum-cron.lock" ],
+      rmdirs => true,
+      type => ctime,
+    }
+
+
     case $operatingsystem {
         centos: {
             case $lsbmajdistrelease {
