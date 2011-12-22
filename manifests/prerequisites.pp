@@ -26,7 +26,7 @@ class yum::prerequisites {
       sourceselect => all,
       recurse => true,
       purge => true,
-      foce => true,
+      force => true,
       owner => root,
       group => 0,
       mode => '600' ;
