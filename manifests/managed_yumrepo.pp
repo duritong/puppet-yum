@@ -11,7 +11,7 @@ define yum::managed_yumrepo (
   $includepkgs = 'absent') {
 
   # ensure that everything is setup
-  equie ::yum::prerequisites
+  require ::yum::prerequisites
 
   file{"/etc/yum.repos.d/${name}.repo":
     ensure => file,
