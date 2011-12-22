@@ -3,6 +3,13 @@ class yum::prerequisites {
     'yum-priorities' :
       ensure => present,
   }
+  case $lsbmajdistrelease {
+    6 : {
+      Package['yum-priorities']{
+        name => 'yum-plugin-priorities'
+      }
+    }
+  }
 
   # ensure there are no other repos
   file {
