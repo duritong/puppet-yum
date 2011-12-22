@@ -11,15 +11,11 @@ define yum::managed_yumrepo (
   $includepkgs = 'absent') {
 
   # ensure that everything is setup
-  include ::yum::prerequisites
+  equie ::yum::prerequisites
 
   file{"/etc/yum.repos.d/${name}.repo":
     ensure => file,
     replace => false,
-    before => Yumrepo[$name],
-    require => [ File[yum_repos_d],
-      Package[yum-priorities]
-    ],
     mode => 0644, owner => root, group => 0;
   }
 
@@ -34,9 +30,6 @@ define yum::managed_yumrepo (
     priority => $priority,
     exclude => $exclude,
     includepkgs => $includepkgs,
-    require => [
-      File[rpm_gpg],
-      Package[yum-priorities]
-    ],
+    require => File["/etc/yum.repos.d/${name}.repo"];
   }
 }

@@ -11,34 +11,34 @@
 # General Public License version 3 as published by
 # the Free Software Foundation.
 #
-
 class yum {
-    # autoupdate
-    package { yum-cron:
-        ensure => present
-    }
-
-    service { yum-cron:
-        enable => true,
-        ensure => running,
-        hasstatus => true,
-        hasrestart => true,
-        require => Package[yum-cron],
-    }
-
-    case $operatingsystem {
-        centos: {
-            case $lsbmajdistrelease {
-                5: { include yum::centos::five }
-                default: {
-                    info("no class for this version yet defined, try to configure it with the version for 5")
-                    include yum::centos::five
-                }
-            }
+# autoupdate
+  package {
+    'yum-cron' :
+      ensure => present
+  }
+  service {
+    'yum-cron' :
+      enable => true,
+      ensure => running,
+      hasstatus => true,
+      hasrestart => true,
+      require => Package[yum-cron],
+  }
+  case $operatingsystem {
+    centos : {
+      include yum::centos::base
+      case $lsbmajdistrelease {
+        5 : {
+          include yum::centos::five
         }
-        default: { fail("no managed repo yet for this distro") }
+      }
     }
-    if $use_munin {
-        include ::yum::munin
+    default : {
+      fail("no managed repo yet for this distro")
     }
+  }
+  if $use_munin {
+    include ::yum::munin
+  }
 }
