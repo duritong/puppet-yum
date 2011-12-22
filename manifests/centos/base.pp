@@ -5,41 +5,41 @@ class yum::centos::base {
         mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os',
         enabled => 1,
         gpgcheck => 1,
-        gpgkey => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${lsbmajdistrelease}",
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever',
         priority => 1;
       'updates':
         descr => 'CentOS-$releasever - Updates',
         mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates',
         enabled => 1,
         gpgcheck => 1,
-        gpgkey => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${lsbmajdistrelease}",
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever',
         priority => 1;
       'addons':
         descr => 'CentOS-$releasever - Addons',
         mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=addons',
         enabled => 1,
         gpgcheck => 1,
-        gpgkey => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${lsbmajdistrelease}",
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever',
         priority => 1;
       'extras':
         descr => 'CentOS-$releasever - Extras',
         mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras',
         enabled => 1,
         gpgcheck => 1,
-        gpgkey => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${lsbmajdistrelease}",
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever',
         priority => 1;
       'centosplus':
         descr => 'CentOS-$releasever - Centosplus',
         mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus',
         enabled => 1,
         gpgcheck => 1,
-        gpgkey => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${lsbmajdistrelease}",
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever',
         priority => 2;
       'contrib':
         descr => 'CentOS-$releasever - Contrib',
         mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=contrib',
         gpgcheck => 1,
-        gpgkey => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${lsbmajdistrelease}",
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever',
         priority => 10;
       "rpmforge-rhel${lsbmajdistrelease}":
         descr => 'RPMForge RHEL5 packages',
@@ -60,7 +60,7 @@ class yum::centos::base {
         mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus',
         enabled => 1,
         gpgcheck => 1,
-        gpgkey => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${lsbmajdistrelease}",
+        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever',
         priority => 15;
       'epel':
         descr => 'Extra Packages for Enterprise Linux $releasever - $basearch',
