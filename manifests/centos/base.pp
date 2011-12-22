@@ -48,7 +48,7 @@ class yum::centos::base {
         gpgcheck => 1,
         gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag',
         priority => 30;
-      'centos5-atrpms':
+      "centos${lsbmajdistrelease}-atrpms":
         descr => 'CentOS $releasever - $basearch - ATrpms',
         baseurl => 'http://dl.atrpms.net/el$releasever-$basearch/atrpms/stable',
         enabled => 1,
