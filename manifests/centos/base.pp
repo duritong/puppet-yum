@@ -1,4 +1,4 @@
-class yum::centos::five {
+class yum::centos::base {
     yum::managed_yumrepo{
       'base':
         descr => 'CentOS-$releasever - Base',
