@@ -14,13 +14,6 @@ class yum::centos::base {
         gpgcheck => 1,
         gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever',
         priority => 1;
-      'addons':
-        descr => 'CentOS-$releasever - Addons',
-        mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=addons',
-        enabled => 1,
-        gpgcheck => 1,
-        gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever',
-        priority => 1;
       'extras':
         descr => 'CentOS-$releasever - Extras',
         mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras',
