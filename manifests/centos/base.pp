@@ -48,7 +48,7 @@ class yum::centos::base {
         gpgcheck => 0,
         gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY.atrpms',
         priority => 30;
-      'centos5-plus':
+      "centos${lsbmajdistrelease}-plus":
         descr => 'CentOS-$releasever - Plus',
         mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus',
         enabled => 1,
