@@ -38,7 +38,7 @@ class yum {
       fail("no managed repo yet for this distro")
     }
   }
-  if $use_munin {
+  if hiera('use_munin',false) {
     include ::yum::munin
   }
 }
