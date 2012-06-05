@@ -1,12 +1,7 @@
 class yum::centos::testing {
-  case $yum_centos_testing_include_pkgs {
+  case $yum::centos_testing_include_pkgs {
     '' : {
-      fail('Please configure $yum_centos_testing_include_pkgs as we run the testing repo with highest repository')
-    }
-  }
-  case $yum_centos_testing_exclude_pkgs {
-    '' : {
-      $yum_centos_testing_exclude_pkgs = 'absent'
+      fail('Please configure $yum::centos_testing_include_pkgs as we run the testing repo with highest repository')
     }
   }
   file {
@@ -24,7 +19,7 @@ class yum::centos::testing {
       gpgcheck => 1,
       gpgkey => 'http://dev.centos.org/centos/RPM-GPG-KEY-CentOS-testing',
       priority => 1,
-      includepkgs => $yum_centos_testing_include_pkgs,
-      exclude => $yum_centos_testing_exclude_pkgs,
+      includepkgs => $yum::centos_testing_include_pkgs,
+      exclude => $yum::centos_testing_exclude_pkgs,
   }
 }

@@ -3,7 +3,7 @@ class yum::prerequisites {
     'yum-priorities' :
       ensure => present,
   }
-  case $lsbmajdistrelease {
+  case $::lsbmajdistrelease {
     6 : {
       Package['yum-priorities']{
         name => 'yum-plugin-priorities'
@@ -27,7 +27,7 @@ class yum::prerequisites {
     'rpm_gpg' :
       path => '/etc/pki/rpm-gpg/',
       source => [
-        "puppet:///modules/yum/rpm-gpg/${operatingsystem}.${lsbmajdistrelease}/",
+        "puppet:///modules/yum/rpm-gpg/${::operatingsystem}.${::lsbmajdistrelease}/",
         "puppet:///modules/yum/rpm-gpg/default/"
       ],
       sourceselect => all,

@@ -11,7 +11,10 @@
 # General Public License version 3 as published by
 # the Free Software Foundation.
 #
-class yum {
+class yum(
+  $centos_testing_include_pkgs = hiera('yum_centos_testing_include_pkgs',''),
+  $centos_testing_exclude_pkgs = hiera('yum_centos_testing_exclude_pkgs','')
+) {
 # autoupdate
   package {
     'yum-cron' :
@@ -25,10 +28,10 @@ class yum {
       hasrestart => true,
       require => Package[yum-cron],
   }
-  case $operatingsystem {
+  case $::operatingsystem {
     centos : {
       include yum::centos::base
-      case $lsbmajdistrelease {
+      case $::lsbmajdistrelease {
         5 : {
           include yum::centos::five
         }
