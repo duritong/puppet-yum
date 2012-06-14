@@ -12,8 +12,9 @@
 # the Free Software Foundation.
 #
 class yum(
-  $centos_testing_include_pkgs = hiera('yum_centos_testing_include_pkgs',''),
-  $centos_testing_exclude_pkgs = hiera('yum_centos_testing_exclude_pkgs','')
+  $centos_testing_include_pkgs = '',
+  $centos_testing_exclude_pkgs = '',
+  $manage_munin                = false
 ) {
 # autoupdate
   package {
@@ -41,7 +42,7 @@ class yum(
       fail("no managed repo yet for this distro")
     }
   }
-  if hiera('use_munin',false) {
+  if $yum::manage_munin {
     include ::yum::munin
   }
 }
