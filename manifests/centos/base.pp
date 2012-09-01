@@ -157,7 +157,7 @@ class yum::centos::base {
       enabled => 0,
       gpgcheck => 1,
       gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-elrepo.org',
-      priority => 0;
+      priority => 20;
 
     'elrepo-extras':
       descr => 'ELRepo.org Community Enterprise Linux Repository - el$releasever',
