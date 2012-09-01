@@ -131,5 +131,42 @@ class yum::centos::base {
       gpgcheck => 1,
       gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kbsingh',
       priority => 20;
+
+    'elrepo':
+      name => 'ELRepo.org Community Enterprise Linux Repository - el$releasever'
+      baseurl => 'http://elrepo.org/linux/elrepo/el$relesever/$basearch/'
+      mirrorlist => 'http://elrepo.org/mirrors-elrepo.el$releasever'
+      enabled => 0
+      gpgcheck => 1
+      gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-elrepo.org'
+      priority => 20
+
+    'elrepo-testing':
+      name => 'ELRepo.org Community Enterprise Linux Testing Repository - el$releasever'
+      baseurl => 'http://elrepo.org/linux/testing/el5/$basearch/'
+      mirrorlist => 'http://elrepo.org/mirrors-elrepo-testing.el$releasever'
+      enabled => 0
+      gpgcheck => 1
+      gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-elrepo.org'
+      priority => 20
+
+    'elrepo-kernel':
+      name => 'ELRepo.org Community Enterprise Linux Kernel Repository - el$releasever'
+      baseurl => 'http://elrepo.org/linux/kernel/el$releasever/$basearch/'
+      mirrorlist => 'http://elrepo.org/mirrors-elrepo-kernel.el$releasever'
+      enabled => 0
+      gpgcheck => 1
+      gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-elrepo.org'
+      priority => 0
+
+    'elrepo-extras':
+      name => 'ELRepo.org Community Enterprise Linux Repository - el$releasever'
+      baseurl => 'http://elrepo.org/linux/extras/el5/$basearch/'
+      mirrorlist => 'http://elrepo.org/mirrors-elrepo-extras.el$releasever'
+      enabled => 0
+      gpgcheck => 1
+      gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-elrepo.org'
+      priority => 20
+
   }
 }
