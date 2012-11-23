@@ -14,7 +14,8 @@
 class yum(
   $centos_testing_include_pkgs = '',
   $centos_testing_exclude_pkgs = '',
-  $manage_munin                = false
+  $manage_munin                = false,
+  $repo_stages                 = 'main'
 ) {
 # autoupdate
   package {
@@ -31,10 +32,14 @@ class yum(
   }
   case $::operatingsystem {
     centos : {
-      include yum::centos::base
+      class{'yum::centos::base':
+        stage => $repo_stages,
+      }
       case $::lsbmajdistrelease {
         5 : {
-          include yum::centos::five
+          class{'yum::centos::five':
+            stage => $repo_stages,
+          }
         }
       }
     }
