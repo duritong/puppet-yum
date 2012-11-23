@@ -32,7 +32,8 @@ class yum(
   }
   case $::operatingsystem {
     centos : {
-      class{'yum::centos::base':
+      class{[ 'yum::centos::base',
+              'yum::prerequisites' ]:
         stage => $repo_stage,
       }
       case $::lsbmajdistrelease {

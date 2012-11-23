@@ -12,8 +12,6 @@ define yum::managed_yumrepo (
 ) {
 
   # ensure that everything is setup
-  include ::yum::prerequisites
-
   Anchor['yum::prerequisites::done'] -> file{
     "/etc/yum.repos.d/${name}.repo":
       ensure  => file,
