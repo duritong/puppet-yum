@@ -37,6 +37,7 @@ class yum::prerequisites {
       path => '/etc/pki/rpm-gpg/',
       source => [
         "puppet:///modules/yum/rpm-gpg/${::operatingsystem}.${::lsbmajdistrelease}/",
+        "puppet:///modules/yum/rpm-gpg/${::operatingsystem}/",
         "puppet:///modules/yum/rpm-gpg/default/"
       ],
       sourceselect => all,
