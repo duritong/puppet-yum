@@ -3,10 +3,19 @@ class yum::prerequisites {
     'yum-priorities' :
       ensure => present,
   }
-  case $::lsbmajdistrelease {
-    6 : {
+  case $::operatingsystem {
+    amazon : {
       Package['yum-priorities']{
         name => 'yum-plugin-priorities'
+      }
+    }
+    default : {
+      case $::lsbmajdistrelease {
+        6 : {
+          Package['yum-priorities']{
+            name => 'yum-plugin-priorities'
+          }
+        }
       }
     }
   }
