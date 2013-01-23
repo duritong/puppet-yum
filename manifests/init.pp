@@ -44,6 +44,9 @@ class yum(
         }
       }
     }
+    amazon : {
+      include yum::amazon::base
+    }
     default : {
       fail("no managed repo yet for this distro")
     }
