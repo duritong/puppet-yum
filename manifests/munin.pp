@@ -24,6 +24,5 @@ class yum::munin {
 
   ::munin::plugin::deploy{'yum_updates':
     source  => 'yum/munin/yum_updates',
-    seltype => 'munin_unconfined_plugin_exec_t'
   }
 }
