@@ -7,9 +7,13 @@ class yum::munin {
     owner   => root,
     group   => 0,
     mode    => '0755';
-  } ~> exec{'yum_munin_updates_init':
-    command     => '/var/lib/munin/yum_updates.py',
   }
+
+  exec{'yum_munin_updates_init':
+    command     => '/var/lib/munin/yum_updates.py',
+    refreshonly => true,
+  }
+
   file{'/etc/cron.daily/z_munin_yum_updates.sh':
     source  => 'puppet:///modules/yum/munin/munin_yum_updates.sh',
     require => File['/var/lib/munin/yum_updates.py'],
@@ -17,6 +21,7 @@ class yum::munin {
     group   => 0,
     mode    => '0755';
   }
+
   ::munin::plugin::deploy{'yum_updates':
     source  => 'yum/munin/yum_updates',
     seltype => 'munin_unconfined_plugin_exec_t'
