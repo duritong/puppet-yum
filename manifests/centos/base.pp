@@ -35,21 +35,21 @@ class yum::centos::base {
       gpgcheck       => 1,
       gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever',
       priority       => 10;
-    "rpmforge-rhel${::lsbmajdistrelease}":
+    "rpmforge-rhel${::operatingsystemmajrelease}":
       descr          => 'RPMForge RHEL5 packages',
       baseurl        => 'http://wftp.tu-chemnitz.de/pub/linux/dag/redhat/el$releasever/en/$basearch/dag',
       enabled        => 1,
       gpgcheck       => 1,
       gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag',
       priority       => 30;
-    "centos${::lsbmajdistrelease}-atrpms":
+    "centos${::operatingsystemmajrelease}-atrpms":
       descr          => 'CentOS $releasever - $basearch - ATrpms',
       baseurl        => 'http://dl.atrpms.net/el$releasever-$basearch/atrpms/stable',
       enabled        => 1,
       gpgcheck       => 1,
       gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY.atrpms',
       priority       => 30;
-    "centos${::lsbmajdistrelease}-plus":
+    "centos${::operatingsystemmajrelease}-plus":
       descr          => 'CentOS-$releasever - Plus',
       mirrorlist     => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus',
       enabled        => 1,

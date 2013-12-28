@@ -36,7 +36,7 @@ class yum(
               'yum::prerequisites' ]:
         stage => $repo_stage,
       }
-      case $::lsbmajdistrelease {
+      case $::operatingsystemmajrelease {
         5 : {
           class{'yum::centos::five':
             stage => $repo_stage,

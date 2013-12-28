@@ -12,7 +12,7 @@ class yum::jpackage {
     'jpackage-rhel' :
       descr => 'JPackage (free) for Red Hat Enterprise Linux $releasever',
       mirrorlist =>
-      "http://www.jpackage.org/jpackage_rhel-${::lsbmajdistrelease}_1.7.txt",
+      "http://www.jpackage.org/jpackage_rhel-${::operatingsystemmajrelease}_1.7.txt",
       failovermethod => 'priority',
       gpgcheck => 1,
       gpgkey => 'http://www.jpackage.org/jpackage.asc',
