@@ -24,11 +24,11 @@ class yum(
   }
   service {
     'yum-cron' :
-      enable => true,
-      ensure => running,
-      hasstatus => true,
-      hasrestart => true,
-      require => Package[yum-cron],
+      ensure      => running,
+      enable      => true,
+      hasstatus   => true,
+      hasrestart  => true,
+      require     => Package[yum-cron],
   }
   case $::operatingsystem {
     centos : {
@@ -36,11 +36,9 @@ class yum(
               'yum::prerequisites' ]:
         stage => $repo_stage,
       }
-      case $::operatingsystemmajrelease {
-        5 : {
-          class{'yum::centos::five':
-            stage => $repo_stage,
-          }
+      if $::operatingsystemmajrelease == 5 {
+        class{'yum::centos::five':
+          stage => $repo_stage,
         }
       }
     }
@@ -48,7 +46,7 @@ class yum(
       include yum::amazon::base
     }
     default : {
-      fail("no managed repo yet for this distro")
+      fail('no managed repo yet for this distro')
     }
   }
   if $yum::manage_munin {
