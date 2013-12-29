@@ -6,12 +6,12 @@ class yum::centos::puppetlabs(
 ){
 
   file{'/etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs':
-    source => 'puppet:///modules/yum/rpm-gpg/additional/RPM-GPG-KEY-puppetlabs',
-    owner => root,
-    group => 0,
-    mode => '600';
+    source  => 'puppet:///modules/yum/rpm-gpg/additional/RPM-GPG-KEY-puppetlabs',
+    owner   => root,
+    group   => 0,
+    mode    => '600';
   } -> yum::managed_yumrepo{
-    'puppetlabs-dependencies':
+    'puppetlabs-products':
       descr          => 'Puppetlabs products',
       baseurl        => 'http://yum.puppetlabs.com/el/$releaseverServer/products/$basearch/',
       enabled        => $enable_products,
