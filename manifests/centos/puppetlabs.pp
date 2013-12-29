@@ -9,7 +9,7 @@ class yum::centos::puppetlabs(
     source  => 'puppet:///modules/yum/rpm-gpg/additional/RPM-GPG-KEY-puppetlabs',
     owner   => root,
     group   => 0,
-    mode    => '600';
+    mode    => '0600';
   } -> yum::managed_yumrepo{
     'puppetlabs-products':
       descr          => 'Puppetlabs products',
