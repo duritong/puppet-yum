@@ -162,7 +162,7 @@ class yum::centos::base {
 
     'elrepo-extras':
       descr          => 'ELRepo.org Community Enterprise Linux Repository - el$releasever',
-      baseurl        => 'http://elrepo.org/linux/extras/el5/$basearch/',
+      baseurl        => 'http://elrepo.org/linux/extras/el$releasever/$basearch/',
       mirrorlist     => 'http://elrepo.org/mirrors-elrepo-extras.el$releasever',
       enabled        => 0,
       gpgcheck       => 1,
