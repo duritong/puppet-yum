@@ -8,6 +8,13 @@ class yum::centos::base {
       gpgcheck       => 1,
       gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever',
       priority       => 1;
+    'debuginfo':
+      descr          => 'CentOS-$releasever - DebugInfo',
+      mirrorlist     => 'http://debuginfo.centos.org/$releasever/$basearch/',
+      enabled        => 0,
+      gpgcheck       => 1,
+      gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever',
+      priority       => 1;
     'updates':
       descr          => 'CentOS-$releasever - Updates',
       mirrorlist     => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates',
