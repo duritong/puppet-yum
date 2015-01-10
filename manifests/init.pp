@@ -17,18 +17,14 @@ class yum(
   $manage_munin                = false,
   $repo_stage                  = 'main'
 ) {
-# autoupdate
+  # autoupdate
   package {
     'yum-cron' :
       ensure => present
-  }
-  service {
+  } -> service {
     'yum-cron' :
-      ensure      => running,
-      enable      => true,
-      hasstatus   => true,
-      hasrestart  => true,
-      require     => Package[yum-cron],
+      ensure => running,
+      enable => true,
   }
   case $::operatingsystem {
     centos : {
@@ -36,7 +32,20 @@ class yum(
               'yum::prerequisites' ]:
         stage => $repo_stage,
       }
-      if $::operatingsystemmajrelease == 5 {
+      if $::operatingsystemmajrelease > 6 {
+        line{
+          'enable_autoupdate':
+            line   => 'apply_updates = yes',
+            match  => '^apply_updates',
+            path   => '/etc/yum/yum-cron.conf',
+            notify => Service['yum-cron'];
+          'silence_update':
+            line   => 'update_messages = no',
+            match  => '^update_messages',
+            path   => '/etc/yum/yum-cron.conf',
+            notify => Service['yum-cron'];
+        }
+      } elsif $::operatingsystemmajrelease == 5 {
         class{'yum::centos::five':
           stage => $repo_stage,
         }
