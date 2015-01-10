@@ -33,7 +33,7 @@ class yum(
         stage => $repo_stage,
       }
       if $::operatingsystemmajrelease > 6 {
-        line{
+        file_line{
           'enable_autoupdate':
             line   => 'apply_updates = yes',
             match  => '^apply_updates',
