@@ -10,6 +10,9 @@ class yum::centos::puppetlabs(
     owner   => root,
     group   => 0,
     mode    => '0600';
+  } -> rpmkey{'4BD6EC30':
+    ensure => 'present',
+    source => '/etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs',
   } -> yum::managed_yumrepo{
     'puppetlabs-products':
       descr          => 'Puppetlabs products',
