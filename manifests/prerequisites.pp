@@ -15,6 +15,15 @@ class yum::prerequisites {
         Package['yum-priorities']{
           name => 'yum-plugin-priorities'
         }
+        if $::operatingsystemmajrelease < 7 {
+          package{'yum-presto':
+            ensure => present,
+          }
+        } else {
+          package{'deltarpms':
+            ensure => present,
+          }
+        }
       }
     }
   }
