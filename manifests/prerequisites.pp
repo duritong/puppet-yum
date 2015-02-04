@@ -20,7 +20,7 @@ class yum::prerequisites {
             ensure => present,
           }
         } else {
-          package{'deltarpms':
+          package{'deltarpm':
             ensure => present,
           }
         }
