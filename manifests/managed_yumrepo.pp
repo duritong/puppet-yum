@@ -10,12 +10,13 @@ define yum::managed_yumrepo (
   $priority         = 99,
   $timeout          = 10,
   $exclude          = 'absent',
-  $includepkgs      = 'absent'
+  $includepkgs      = 'absent',
+  $target           = "/etc/yum.repos.d/${name}.repo",
 ) {
 
   # ensure that everything is setup
   Anchor['yum::prerequisites::done'] -> file{
-    "/etc/yum.repos.d/${name}.repo":
+    $target:
       ensure  => file,
       replace => false,
       owner   => root,
@@ -34,6 +35,7 @@ define yum::managed_yumrepo (
       priority        => $priority,
       timeout         => $timeout,
       exclude         => $exclude,
-      includepkgs     => $includepkgs;
+      includepkgs     => $includepkgs,
+      target          => $target,
   }
 }
