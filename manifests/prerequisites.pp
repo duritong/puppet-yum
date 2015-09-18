@@ -4,61 +4,31 @@ class yum::prerequisites {
     'yum-priorities' :
       ensure => present,
   }
-  case $::operatingsystem {
-    amazon : {
-      Package['yum-priorities']{
-        name => 'yum-plugin-priorities'
-      }
+  if versioncmp($::operatingsystemmajrelease,'5') > 0 {
+    Package['yum-priorities']{
+      name => 'yum-plugin-priorities'
     }
-    default : {
-      if $::operatingsystemmajrelease > 5 {
-        Package['yum-priorities']{
-          name => 'yum-plugin-priorities'
-        }
-        if $::operatingsystemmajrelease < 7 {
-          package{'yum-presto':
-            ensure => present,
-          }
-        } else {
-          package{'deltarpm':
-            ensure => present,
-          }
-        }
+    package{'deltarpm':
+      ensure => present,
+      before => Anchor['yum::prerequisites::done'],
+    }
+    if versioncmp($::operatingsystemmajrelease,'7') < 0 {
+      Package['deltarpm']{
+        name => 'yum-presto'
       }
     }
   }
 
-  # ensure there are no other repos
+  # ensure there are no other repos nor gpg keys
   file {
-    'yum_repos_d' :
+    ['/etc/pki/rpm-gpg','/etc/yum.repos.d']:
       ensure        => directory,
-      path          => '/etc/yum.repos.d/',
       recurse       => true,
       purge         => true,
       force         => true,
-      require       => Package[yum-priorities],
-      before        => Anchor['yum::prerequisites::done'],
+      require       => Package['yum-priorities'],
       owner         => root,
       group         => 0,
       mode          => '0755';
-
-    'rpm_gpg' :
-      path          => '/etc/pki/rpm-gpg/',
-      source        => [
-        "puppet:///modules/yum/rpm-gpg/${::operatingsystem}.${::operatingsystemmajrelease}/",
-        "puppet:///modules/yum/rpm-gpg/${::operatingsystem}/",
-        'puppet:///modules/yum/rpm-gpg/default/'
-      ],
-      sourceselect  => all,
-      require       => Package[yum-priorities],
-      before        => Anchor['yum::prerequisites::done'],
-      recurse       => true,
-      purge         => true,
-      force         => true,
-      owner         => root,
-      group         => 0,
-      mode          => '0600';
-  }
-
-  anchor{'yum::prerequisites::done': }
+  } -> anchor{'yum::prerequisites::done': }
 }

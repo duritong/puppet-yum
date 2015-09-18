@@ -1,6 +1,6 @@
 # centos rolling repo
 class yum::centos::cr {
-  yum::managed_yumrepo{'CentOS-CR':
+  yum::repo{'CentOS-CR':
     descr    => 'CentOS-$releasever - CR',
     baseurl  => 'http://mirror.centos.org/centos/$releasever/cr/$basearch/',
     enabled  => 1,
