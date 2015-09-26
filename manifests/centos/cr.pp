@@ -11,8 +11,8 @@ class yum::centos::cr {
   if versioncmp($::operatingsystemmajrelease,'7') < 0 {
     package{'centos-release-cr':
       ensure  => installed,
-      require => Yum::Managed_yumrepo['extras'],
-      before  => Yum::Managed_yumrepo['CentOS-CR'],
+      require => Yum::Repo['extras'],
+      before  => Yum::Repo['CentOS-CR'],
     }
   }
 }
