@@ -174,7 +174,7 @@ class yum::centos {
         gpgkey        => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${::operatingsystemmajrelease}",
         manage_gpgkey => false,
         priority      => 1 ,
-      }
+      },
     }
     # sometimes yum-cron does not clean up things properly on EL5,
     # so we enforce some cleanup here
