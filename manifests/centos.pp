@@ -190,7 +190,7 @@ class yum::centos {
     $osversion_repos = {
       'nux-dextop' => {
         descr    => 'Nux.Ro RPMs for general desktop use',
-        baseurl  => 'http://li.nux.ro/download/nux/dextop/el7/$basearch/ http://mirror.li.nux.ro/li.nux.ro/nux/dextop/el7/$basearch/',
+        baseurl  => 'http://li.nux.ro/download/nux/dextop/el$releasever/$basearch/ http://mirror.li.nux.ro/li.nux.ro/nux/dextop/el$releasever/$basearch/',
         enabled  => 1,
         gpgcheck => 1,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-nux.ro',
@@ -199,7 +199,7 @@ class yum::centos {
       },
       'nux-dextop-testing' => {
         descr    => 'Nux.Ro RPMs for general desktop use - testing',
-        baseurl  => 'http://li.nux.ro/download/nux/dextop-testing/el7/$basearch/',
+        baseurl  => 'http://li.nux.ro/download/nux/dextop-testing/el$releasever/$basearch/',
         enabled  => 0,
         gpgcheck => 1,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-nux.ro',
