@@ -193,6 +193,7 @@ class yum::centos {
         baseurl  => 'http://li.nux.ro/download/nux/dextop/el$releasever/$basearch/ http://mirror.li.nux.ro/li.nux.ro/nux/dextop/el$releasever/$basearch/',
         enabled  => 1,
         gpgcheck => 1,
+        gpgkeyid => '85C6CD8A',
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-nux.ro',
         protect  => 0,
         priority => 30,
