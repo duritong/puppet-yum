@@ -25,7 +25,7 @@ class yum::autoupdate(
       enable => true,
   }
 
-  if versioncmp($::operatingsystemmajrelease,'6') > 1 {
+  if versioncmp($::operatingsystemmajrelease,'6') > 0 {
     file_line{
       'enable_autoupdate':
         line   => "apply_updates = ${apply_updates}",
