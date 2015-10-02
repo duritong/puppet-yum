@@ -18,7 +18,7 @@ class yum::autoupdate(
   # autoupdate
   package {
     'yum-cron' :
-      ensure => present
+      ensure => present,
   } -> service {
     'yum-cron' :
       ensure => running,
