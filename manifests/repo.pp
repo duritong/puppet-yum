@@ -26,7 +26,7 @@ define yum::repo (
   # otherwise we clean up things automatically
   if $ensure == 'present' {
     # ensure that everything is setup
-    Anchor['yum::prerequisites::done'] -> file{
+    Anchor<| title == 'yum::prerequisites::done' |> -> file{
       $target:
         ensure  => file,
         replace => false,
