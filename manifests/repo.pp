@@ -58,7 +58,9 @@ define yum::repo (
           owner  => root,
           group  => 0,
           mode   => '0644',
-          before => Yumrepo[$name],
+        } ~> exec{"rpm --import /etc/pki/rpm-gpg/${gpg_key_file}":
+          refreshonly => true,
+          before      => Yumrepo[$name],
         }
 
         if $manage_gpgkey {
@@ -80,10 +82,7 @@ define yum::repo (
             ensure  => 'present',
             source  => "/etc/pki/rpm-gpg/${gpg_key_file}",
             require => File["/etc/pki/rpm-gpg/${gpg_key_file}"],
-          } -> exec{"rpm --import /etc/pki/rpm-gpg/${gpg_key_file}":
-            refreshonly => true,
-            subscribe   => File["/etc/pki/rpm-gpg/${gpg_key_file}"],
-            before      => Yumrepo[$name],
+            before  => Exec["rpm --import /etc/pki/rpm-gpg/${gpg_key_file}"]
           }
         }
       }
