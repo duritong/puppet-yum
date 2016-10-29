@@ -17,7 +17,7 @@ class yum::centos::puppet(
       gpgcheck      => 1,
       gpgkey        => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppet',
       gpgkey_source => 'puppet:///modules/yum/rpm-gpg/additional/RPM-GPG-KEY-puppet',
-      gpgkeyid      => '4BD6EC30',
+      gpgkeyid      => 'EF8D349F',
       priority      => 1,
     },
     'puppet-dependencies' => {
