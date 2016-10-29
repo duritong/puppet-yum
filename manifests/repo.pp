@@ -66,7 +66,7 @@ define yum::repo (
             undef => [
               "puppet:///modules/yum/rpm-gpg/${::operatingsystem}.${::operatingsystemmajrelease}/${gpg_key_file}",
               "puppet:///modules/yum/rpm-gpg/${::operatingsystem}/${gpg_key_file}",
-              "puppet:///modules/yum/rpm-gpg/default/${gpg_key_file}"
+              "puppet:///modules/yum/rpm-gpg/default/${gpg_key_file}",
             ],
             default => $gpgkey_source,
           }
@@ -80,7 +80,10 @@ define yum::repo (
             ensure  => 'present',
             source  => "/etc/pki/rpm-gpg/${gpg_key_file}",
             require => File["/etc/pki/rpm-gpg/${gpg_key_file}"],
-            before  => Yumrepo[$name],
+          } -> exec{"rpm --import /etc/pki/rpm-gpg/${gpg_key_file}":
+            refreshonly => true,
+            subscribe   => File["/etc/pki/rpm-gpg/${gpg_key_file}"],
+            before      => Yumrepo[$name],
           }
         }
       }
