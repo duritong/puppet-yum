@@ -13,7 +13,7 @@ class yum::centos::puppet(
     'puppet' => {
       descr         => 'Puppet products',
       baseurl       => 'http://yum.puppet.com/el/$releasever/products/$basearch/',
-      enabled       => 0,
+      enabled       => 1,
       gpgcheck      => 1,
       gpgkey        => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppet',
       gpgkey_source => 'puppet:///modules/yum/rpm-gpg/additional/RPM-GPG-KEY-puppet',
