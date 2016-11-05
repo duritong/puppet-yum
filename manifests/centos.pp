@@ -151,7 +151,7 @@ class yum::centos {
       gpgcheck       => 1,
       failovermethod => 'priority',
       gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL${epel_suffix}",
-      priority       => 17,
+      priority       => 16,
     },
     'epel-testing-debuginfo'                      => {
       descr          => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch - Debug',
@@ -160,7 +160,7 @@ class yum::centos {
       gpgcheck       => 1,
       failovermethod => 'priority',
       gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL${epel_suffix}",
-      priority       => 17,
+      priority       => 16,
     },
     'epel-testing-source'                         => {
       descr          => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch - Source',
@@ -169,7 +169,7 @@ class yum::centos {
       gpgcheck       => 1,
       failovermethod => priority,
       gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL${epel_suffix}",
-      priority       => 17,
+      priority       => 16,
     },
     'elrepo'         => {
       descr          => 'ELRepo.org Community Enterprise Linux Repository - el$releasever',
