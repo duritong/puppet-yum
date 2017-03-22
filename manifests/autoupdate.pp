@@ -28,15 +28,17 @@ class yum::autoupdate(
   if versioncmp($::operatingsystemmajrelease,'6') > 0 {
     file_line{
       'enable_autoupdate':
-        line   => "apply_updates = ${apply_updates}",
-        match  => '^apply_updates',
-        path   => '/etc/yum/yum-cron.conf',
-        notify => Service['yum-cron'];
+        line    => "apply_updates = ${apply_updates}",
+        match   => '^apply_updates',
+        path    => '/etc/yum/yum-cron.conf',
+        require => Package['yum-cron'],
+        notify  => Service['yum-cron'];
       'silence_update':
-        line   => "update_messages = ${update_messages}",
-        match  => '^update_messages',
-        path   => '/etc/yum/yum-cron.conf',
-        notify => Service['yum-cron'];
+        line    => "update_messages = ${update_messages}",
+        match   => '^update_messages',
+        path    => '/etc/yum/yum-cron.conf',
+        require => Package['yum-cron'],
+        notify  => Service['yum-cron'];
     }
   }
 }
