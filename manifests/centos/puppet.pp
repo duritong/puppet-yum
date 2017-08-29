@@ -13,10 +13,11 @@ class yum::centos::puppet(
     package{'puppet-release':
       ensure => 'installed',
     }
+    $release = $facts['os']['release']['major']
     $default_repos = {
       'puppet'        => {
-        descr         => 'Puppet Repository el 7 - $basearch',
-        baseurl       => 'http://yum.puppetlabs.com/puppet/el/7/$basearch',
+        descr         => "Puppet Repository el ${release} - $basearch",
+        baseurl       => "http://yum.puppetlabs.com/puppet/el/${release}/\$basearch",
         gpgkey        => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppet',
         gpgkey_source => 'puppet:///modules/yum/rpm-gpg/additional/RPM-GPG-KEY-puppet',
         gpgkeyid      => 'EF8D349F',
@@ -25,8 +26,8 @@ class yum::centos::puppet(
         priority      => 1,
       },
       'puppet-source' => {
-        descr         => 'Puppet Repository el 7 - Source',
-        baseurl       => 'http://yum.puppetlabs.com/puppet/el/7/SRPMS',
+        descr         => "Puppet Repository el ${release} - Source",
+        baseurl       => "http://yum.puppetlabs.com/puppet/el/${release}/SRPMS",
         gpgkey        => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppet',
         manage_gpgkey => false,
         enabled       => 0,
