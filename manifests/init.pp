@@ -19,12 +19,10 @@
 # $repo_stage:: 'main'|... - stage on which repos should be managed
 #
 class yum(
-  $manage_munin                = false,
-  $autoupdate                  = true,
-  $repo_stage                  = 'main',
+  Boolean $manage_munin = false,
+  Boolean $autoupdate   = true,
+  String $repo_stage    = 'main',
 ) {
-  validate_bool($manage_munin,$autoupdate)
-  validate_string($repo_stage)
   case $::operatingsystem {
     'CentOS': {
       class{[ '::yum::centos',

@@ -8,12 +8,9 @@
 # $update_messages:: no|yes - should you be informed about updates
 #
 class yum::autoupdate(
-  $apply_updates   = 'yes',
-  $update_messages = 'no',
+  Enum['yes','no'] $apply_updates   = 'yes',
+  Enum['yes','no'] $update_messages = 'no',
 ) {
-
-  validate_re($apply_updates,['^yes$','^no$'])
-  validate_re($update_messages,['^yes$','^no$'])
 
   # autoupdate
   package {
