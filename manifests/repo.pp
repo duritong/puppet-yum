@@ -84,7 +84,7 @@ define yum::repo (
             ensure  => 'present',
             source  => "/etc/pki/rpm-gpg/${gpg_key_file}",
             require => File["/etc/pki/rpm-gpg/${gpg_key_file}"],
-            before  => Exec["rpm --import /etc/pki/rpm-gpg/${gpg_key_file}"]
+            before  => Exec["rpm --import /etc/pki/rpm-gpg/${gpg_key_file}"],
           }
         }
       }
