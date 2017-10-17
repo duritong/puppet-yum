@@ -63,7 +63,7 @@ class yum::centos {
       mirrorlist     => 'http://debuginfo.centos.org/$releasever/$basearch/',
       enabled        => 0,
       gpgcheck       => 1,
-      repo_gpgcheck  => 1,
+      repo_gpgcheck  => 0,
       gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${::operatingsystemmajrelease}",
       manage_gpgkey  => false,
       priority       => 1,
