@@ -1,51 +1,20 @@
 # Install the basic repositories
 class yum::centos {
-  if versioncmp($::operatingsystemmajrelease,'6') < 0 {
-    $epel_suffix = ''
+  $epel_suffix = "-${::operatingsystemmajrelease}"
+  if versioncmp($::operatingsystemmajrelease,'7') < 0 {
     $osversion_repos = {
-      'addons' => {
-        descr         => 'CentOS-$releasever - Addons',
-        mirrorlist    => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=addons',
-        enabled       => 1,
-        gpgcheck      => 1,
-        gpgkey        => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${::operatingsystemmajrelease}",
-        manage_gpgkey => false,
-        priority      => 1 ,
+      'contrib' => {
+        descr          => 'CentOS-$releasever - Contrib',
+        mirrorlist     => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=contrib',
+        gpgcheck       => 1,
+        repo_gpgcheck  => 1,
+        gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${::operatingsystemmajrelease}",
+        manage_gpgkey  => false,
+        priority       => 10,
       },
-    }
-    # sometimes yum-cron does not clean up things properly on EL5,
-    # so we enforce some cleanup here
-    tidy {
-      '/var/lock':
-        age     => '2d',
-        recurse => 1,
-        matches => ['yum-cron.lock'],
-        rmdirs  => true,
-        type    => ctime,
     }
   } else {
-    $epel_suffix = "-${::operatingsystemmajrelease}"
-    $osversion_repos = {
-      'nux-dextop' => {
-        descr    => 'Nux.Ro RPMs for general desktop use',
-        baseurl  => 'http://li.nux.ro/download/nux/dextop/el$releasever/$basearch/ http://mirror.li.nux.ro/li.nux.ro/nux/dextop/el$releasever/$basearch/',
-        enabled  => 1,
-        gpgcheck => 1,
-        gpgkeyid => '85C6CD8A',
-        gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-nux.ro',
-        protect  => 0,
-        priority => 30,
-      },
-      'nux-dextop-testing' => {
-        descr    => 'Nux.Ro RPMs for general desktop use - testing',
-        baseurl  => 'http://li.nux.ro/download/nux/dextop-testing/el$releasever/$basearch/',
-        enabled  => 0,
-        gpgcheck => 1,
-        gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-nux.ro',
-        protect  => 0,
-        priority => 30,
-      },
-    }
+    $osversion_repos = {}
   }
   $base_repos = {
     'base' => {
@@ -97,15 +66,6 @@ class yum::centos {
       gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${::operatingsystemmajrelease}",
       manage_gpgkey  => false,
       priority       => 2,
-    },
-    'contrib' => {
-      descr          => 'CentOS-$releasever - Contrib',
-      mirrorlist     => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=contrib',
-      gpgcheck       => 1,
-      repo_gpgcheck  => 1,
-      gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${::operatingsystemmajrelease}",
-      manage_gpgkey  => false,
-      priority       => 10,
     },
     "rpmforge-rhel${::operatingsystemmajrelease}" => {
       descr          => 'RPMForge RHEL5 packages',
@@ -215,6 +175,25 @@ class yum::centos {
       gpgcheck      => 1,
       gpgkey        => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-elrepo.org',
       priority      => 20,
+    },
+    'nux-dextop' => {
+      descr    => 'Nux.Ro RPMs for general desktop use',
+      baseurl  => 'http://li.nux.ro/download/nux/dextop/el$releasever/$basearch/ http://mirror.li.nux.ro/li.nux.ro/nux/dextop/el$releasever/$basearch/',
+      enabled  => 1,
+      gpgcheck => 1,
+      gpgkeyid => '85C6CD8A',
+      gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-nux.ro',
+      protect  => 0,
+      priority => 30,
+    },
+    'nux-dextop-testing' => {
+      descr    => 'Nux.Ro RPMs for general desktop use - testing',
+      baseurl  => 'http://li.nux.ro/download/nux/dextop-testing/el$releasever/$basearch/',
+      enabled  => 0,
+      gpgcheck => 1,
+      gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-nux.ro',
+      protect  => 0,
+      priority => 30,
     },
   }
 
