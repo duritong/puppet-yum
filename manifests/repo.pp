@@ -90,11 +90,13 @@ define yum::repo (
       }
     }
     if $repo_gpgcheck == 1 {
-      Exec<| title == "rpm --import /etc/pki/rpm-gpg/${gpg_key_file}" |> ->
       exec{"import_yumrepo_gpgkey_${name}":
         command => "yum -q makecache fast -y --disablerepo='*' --enablerepo=${name}",
         unless  => "test -f /var/lib/yum/repos/${facts['os']['architecture']}/${facts['os']['release']['major']}/${name}/gpgdir-ro/pubring.gpg",
         require => Yumrepo[$name],
+      }
+      if ($gpgkey != 'absent') and ($gpgkey =~ /^file:\//) and $manage_gpgkey {
+        Exec["rpm --import /etc/pki/rpm-gpg/${gpg_key_file}"] -> Exec["import_yumrepo_gpgkey_${name}"]
       }
     }
   }
