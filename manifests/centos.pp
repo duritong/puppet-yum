@@ -11,6 +11,16 @@ class yum::centos {
         manage_gpgkey  => false,
         priority       => 10,
       },
+      'debuginfo' => {
+        descr          => 'CentOS-$releasever - DebugInfo',
+        mirrorlist     => 'http://debuginfo.centos.org/$releasever/$basearch/',
+        enabled        => 0,
+        gpgcheck       => 1,
+        repo_gpgcheck  => 0,
+        gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${::operatingsystemmajrelease}",
+        manage_gpgkey  => false,
+        priority       => 1,
+      },
     }
   } else {
     $osversion_repos = {}
@@ -32,7 +42,7 @@ class yum::centos {
       enabled        => 0,
       gpgcheck       => 1,
       repo_gpgcheck  => 0,
-      gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${::operatingsystemmajrelease}",
+      gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-Debug-${::operatingsystemmajrelease}",
       manage_gpgkey  => false,
       priority       => 1,
     },
