@@ -10,9 +10,6 @@ class yum::centos::remi(
   $repos = {},
 ){
   if versioncmp($facts['os']['release']['major'],'7') >= 0 {
-    package{'remi-release':
-      ensure => 'installed',
-    }
     $release = $facts['os']['release']['major']
     $default_repos = {
       'remi-safe'     => {
