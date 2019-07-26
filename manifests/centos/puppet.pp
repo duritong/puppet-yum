@@ -67,5 +67,11 @@ class yum::centos::puppet(
       },
     }
   }
-  create_resources('yum::repo',resources_deep_merge($default_repos,$repos))
+  $all_repos = deep_merge($default_repos,$repos)
+  $all_repos.each |$repo,$params| {
+    yum::repo{
+      $repo:
+        * => $params
+    }
+  }
 }
