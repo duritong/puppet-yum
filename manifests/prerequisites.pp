@@ -22,18 +22,18 @@ class yum::prerequisites {
   # ensure there are no other repos nor gpg keys
   file {
     default:
-      owner         => root,
-      group         => 0,
-      mode          => '0544';
+      owner => root,
+      group => 0,
+      mode  => '0544';
     '/etc/yum/pluginconf.d/subscription-manager.conf':
       content => "[main]
 enabled=0
 ";
     ['/etc/pki/rpm-gpg','/etc/yum.repos.d']:
-      ensure        => directory,
-      recurse       => true,
-      purge         => true,
-      force         => true,
-      require       => Package['yum-priorities'];
+      ensure  => directory,
+      recurse => true,
+      purge   => true,
+      force   => true,
+      require => Package['yum-priorities'];
   } -> anchor{'yum::prerequisites::done': }
 }
