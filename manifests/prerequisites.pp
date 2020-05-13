@@ -24,7 +24,7 @@ class yum::prerequisites {
     default:
       owner => root,
       group => 0,
-      mode  => '0544';
+      mode  => '0644';
     '/etc/yum/pluginconf.d/subscription-manager.conf':
       content => "[main]
 enabled=0
