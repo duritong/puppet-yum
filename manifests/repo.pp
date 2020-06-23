@@ -96,7 +96,12 @@ define yum::repo (
         require => Yumrepo[$name],
       }
       if ($gpgkey != 'absent') and ($gpgkey =~ /^file:\//) and $manage_gpgkey {
-        Exec["rpm --import /etc/pki/rpm-gpg/${gpg_key_file}"] -> Exec["import_yumrepo_gpgkey_${name}"]
+        exec{
+          "clean-gpg-cache-${name}":
+            command     => "rm -rf /var/lib/yum/repos/${facts['os']['architecture']}/${facts['os']['release']['major']}/${name}",
+            refreshonly => true,
+            subscribe   => Exec["rpm --import /etc/pki/rpm-gpg/${gpg_key_file}"],
+        } -> Exec["import_yumrepo_gpgkey_${name}"]
       }
     }
   }
