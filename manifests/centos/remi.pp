@@ -36,5 +36,10 @@ class yum::centos::remi(
   } else {
     fail('This repository is only supported from EL7 on')
   }
-  create_resources('yum::repo',resources_deep_merge($default_repos,$repos))
+  extlib::resources_deep_merge($default_repos,$repos).each |$repo,$vals| {
+    yum::repo{
+      $repo:
+        * => $vals,
+    }
+  }
 }
