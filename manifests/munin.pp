@@ -1,28 +1,47 @@
 # manage munin module for yum
 class yum::munin {
-  file{'/var/lib/munin/yum_updates.py':
-    source  => 'puppet:///modules/yum/munin/yum_updates.py',
-    require => Package['munin-node'],
-    notify  => Exec['yum_munin_updates_init'],
-    owner   => root,
-    group   => 0,
-    mode    => '0755';
-  }
+  if  versioncmp($facts['os']['release']['major'],'8') < 0 {
+    file{'/var/lib/munin/yum_updates.py':
+      source  => 'puppet:///modules/yum/munin/yum_updates.py',
+      require => Package['munin-node'],
+      notify  => Exec['yum_munin_updates_init'],
+      owner   => root,
+      group   => 0,
+      mode    => '0755';
+    }
 
-  exec{'yum_munin_updates_init':
-    command     => '/var/lib/munin/yum_updates.py',
-    refreshonly => true,
-  }
+    exec{'yum_munin_updates_init':
+      command     => '/var/lib/munin/yum_updates.py',
+      refreshonly => true,
+    }
 
-  file{'/etc/cron.daily/z_munin_yum_updates.sh':
-    source  => 'puppet:///modules/yum/munin/munin_yum_updates.sh',
-    require => File['/var/lib/munin/yum_updates.py'],
-    owner   => root,
-    group   => 0,
-    mode    => '0755';
-  }
+    file{'/etc/cron.daily/z_munin_yum_updates.sh':
+      source  => 'puppet:///modules/yum/munin/munin_yum_updates.sh',
+      require => File['/var/lib/munin/yum_updates.py'],
+      owner   => root,
+      group   => 0,
+      mode    => '0755';
+    }
 
-  ::munin::plugin::deploy{'yum_updates':
-    source  => 'yum/munin/yum_updates',
+    munin::plugin::deploy{'yum_updates':
+      source => 'yum/munin/yum_updates',
+    }
+  } else {
+    file{
+      '/var/lib/munin/plugin-state/dnf':
+        ensure => directory,
+        owner  => 'root',
+        group  => 'nobody',
+        mode   => '0640',
+    } -> munin::plugin::deploy{'dnf':
+      source => 'yum/munin/dnf',
+      config => 'group nobody'
+    } -> systemd::timer{
+      'update-munin-dnf':
+        timer_source   => 'puppet:///modules/yum/munin/dnf.timer',
+        service_source => 'puppet:///modules/yum/munin/dnf.service',
+        active         => true,
+        enable         => true,
+    }
   }
 }

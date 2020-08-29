@@ -12,17 +12,17 @@ class yum::autoupdate(
   Enum['yes','no'] $update_messages = 'no',
 ) {
 
-  # autoupdate
-  package {
-    'yum-cron' :
-      ensure => present,
-  } -> service {
-    'yum-cron' :
-      ensure => running,
-      enable => true,
-  }
+  if versioncmp($facts['os']['release']['major'],'8') < 0 {
+    # autoupdate
+    package {
+      'yum-cron' :
+        ensure => present,
+    } -> service {
+      'yum-cron' :
+        ensure => running,
+        enable => true,
+    }
 
-  if versioncmp($::operatingsystemmajrelease,'6') > 0 {
     file_line{
       'enable_autoupdate':
         line    => "apply_updates = ${apply_updates}",
@@ -36,6 +36,19 @@ class yum::autoupdate(
         path    => '/etc/yum/yum-cron.conf',
         require => Package['yum-cron'],
         notify  => Service['yum-cron'];
+    }
+  } else {
+    package {
+      'dnf-automatic':
+        ensure => installed,
+    } -> file_line{
+      'enable_autoupdate':
+        line  => "apply_updates = ${apply_updates}",
+        match => '^apply_updates',
+        path  => '/etc/dnf/automatic.conf',
+    } ~> service{
+      'dnf-automatic.timer':
+        enable => true
     }
   }
 }

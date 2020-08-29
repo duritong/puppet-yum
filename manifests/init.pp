@@ -23,27 +23,20 @@ class yum(
   Boolean $autoupdate   = true,
   String $repo_stage    = 'main',
 ) {
-  case $::operatingsystem {
-    'CentOS': {
-      class{[ '::yum::centos',
-              '::yum::prerequisites' ]:
-        stage => $repo_stage,
-      }
-      include ::yum::centos
-      $repos = $yum::centos::repos
-    }
-    default : {
-      fail('no managed repo yet for this distro')
-    }
+  class{[ 'yum::centos',
+          'yum::prerequisites' ]:
+    stage => $repo_stage,
   }
+  include yum::centos
+  $repos = $yum::centos::repos
   class{'yum::repos':
     repos => $repos,
     stage => $repo_stage,
   }
   if $manage_munin {
-    include ::yum::munin
+    include yum::munin
   }
   if $autoupdate {
-    include ::yum::autoupdate
+    include yum::autoupdate
   }
 }

@@ -7,6 +7,8 @@ define yum::repo (
   $descr            = 'absent',
   $baseurl          = 'absent',
   $mirrorlist       = 'absent',
+  Variant[Enum['absent'],Stdlib::HTTPSUrl]
+  $metalink         = 'absent',
   $metadata_expire  = 300,
   $enabled          = 0,
   $gpgcheck         = 0,
@@ -39,6 +41,7 @@ define yum::repo (
         descr           => $descr,
         baseurl         => $baseurl,
         mirrorlist      => $mirrorlist,
+        metalink        => $metalink,
         metadata_expire => $metadata_expire,
         enabled         => $enabled,
         gpgcheck        => $gpgcheck,
@@ -89,10 +92,17 @@ define yum::repo (
         }
       }
     }
-    if $repo_gpgcheck == 1 {
+    if $repo_gpgcheck == 1 and $enabled == 1 {
+      if versioncmp($facts['os']['release']['major'],'8') < 0 {
+        $makecache_cmd = "yum -q makecache fast -y --disablerepo='*' --enablerepo=${name}"
+        $test_cmd = "test -f /var/lib/yum/repos/${facts['os']['architecture']}/${facts['os']['release']['major']}/${name}/gpgdir-ro/pubring.gpg"
+      } else {
+        $makecache_cmd = "dnf -q makecache -y --disablerepo='*' --enablerepo=${name}"
+        $test_cmd = "find /var/cache/dnf/ -maxdepth 2 -type d -regex '.*/${name}-[a-z0-9]*/pubring' | grep -q pubring"
+      }
       exec{"import_yumrepo_gpgkey_${name}":
-        command => "yum -q makecache fast -y --disablerepo='*' --enablerepo=${name}",
-        unless  => "test -f /var/lib/yum/repos/${facts['os']['architecture']}/${facts['os']['release']['major']}/${name}/gpgdir-ro/pubring.gpg",
+        command => $makecache_cmd,
+        unless  => $test_cmd,
         require => Yumrepo[$name],
       }
       if ($gpgkey != 'absent') and ($gpgkey =~ /^file:\//) and $manage_gpgkey {

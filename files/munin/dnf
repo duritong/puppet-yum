@@ -1,0 +1,113 @@
+#!/usr/bin/perl -w
+# -*- perl -*-
+# vim: ft=perl : sw=4 : ts=4 : et
+
+=head1 NAME
+
+dnf - Plugin for monitoring pending package upgrades with dnf
+      Based on Dagfinn Ilmari Mannsåker's <ilmari@lonres.com>
+      yum-plugin
+
+
+=head1 USAGE
+
+This plugin needs to be called with the 'update' argument
+from cron to work as intended.
+
+=head1 AUTHOR
+
+Copyright 2017 Philipp Jaeger <philipp@pj4e.de>
+
+=head1 LICENSE
+
+GPLv2
+
+=head1 MAGIC MARKERS
+
+ #%# family=auto
+ #%# capabilities=autoconf
+
+=cut
+
+use strict;
+
+my $statefile = "";
+if( defined $ENV{MUNIN_PLUGSTATE} ) {
+  $statefile = "$ENV{MUNIN_PLUGSTATE}/dnf.state";
+}
+else {
+  $statefile = "/var/lib/munin/plugin-state/dnf/state";
+}
+
+
+sub update {
+    if (-l $statefile) {
+      die "$statefile is a symlink, not touching.\n";
+    }
+
+    open my $state, '>', $statefile
+      or die "Can't open $statefile for writing: $!\n";
+
+    open my $dnf, '-|', 'dnf list updates'
+      or die "Can't run 'dnf list updates': $!";
+
+    while (<$dnf>) {
+      next unless /^(\S+)\.\S+\s+\S+\s+\S+/;
+      print $state "$1\n";
+    }
+
+    close $dnf or die "Error running 'dnf list updates': $!\n";
+    close $state or die "Error writing $statefile: $!\n";
+}
+
+sub autoconf {
+    if (system('dnf --version >/dev/null 2>/dev/null') != 0) {
+        print "no (Could not run dnf)\n";
+    }
+    elsif (! -r $statefile) {
+        print "no (Could not find statefile.  Please read 'munindoc yum')\n";
+    }
+    else {
+        print "yes\n";
+    }
+    exit 0;
+}
+
+sub config {
+    print "graph_title Pending packages\n";
+    print "graph no\n";
+    print "pending.label pending\n";
+    print "pending.warning 0:0\n";
+}
+
+sub report {
+    my @packages;
+
+    open my $state, '<', $statefile
+    or die "Can't open $statefile for reading: $!
+Please read 'munindoc yum' to understand why if the file does not exist.\n";
+
+    chomp(@packages = <$state>);
+    close $state;
+
+    print 'pending.value ', scalar(@packages), "\n";
+    print 'pending.extinfo ', join(' ', @packages), "\n"
+    if @packages;
+}
+
+if ($ARGV[0]) {
+    my $arg = $ARGV[0];
+    my %funcs = (
+        update   => \&update,
+        config   => \&config,
+        autoconf => \&autoconf,
+    );
+
+    if (exists $funcs{$arg}) {
+    $funcs{$arg}->();
+    } else {
+    die "Unknown argument '$arg'\n";
+    }
+} else {
+    report();
+}
