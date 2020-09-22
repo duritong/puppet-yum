@@ -19,8 +19,8 @@ EOM
 esac
 
 echo -n "yum.value "
-if [ -e /var/lib/munin/plugin-state/yum_update.state ]; then
-        cat /var/lib/munin/plugin-state/yum_update.state
+if [ -e /var/lib/munin/plugin-state/yum/update.state ]; then
+        cat /var/lib/munin/plugin-state/yum/update.state
 else
         echo -1
 fi

@@ -1,29 +1,28 @@
 # manage munin module for yum
 class yum::munin {
   if  versioncmp($facts['os']['release']['major'],'8') < 0 {
-    file{'/var/lib/munin/yum_updates.py':
-      source  => 'puppet:///modules/yum/munin/yum_updates.py',
-      require => Package['munin-node'],
-      notify  => Exec['yum_munin_updates_init'],
-      owner   => root,
-      group   => 0,
-      mode    => '0755';
-    }
-
-    exec{'yum_munin_updates_init':
+    file{
+      default:
+        require => Package['munin-node'],
+        owner   => root;
+      '/var/lib/munin/plugin-state/yum':
+        ensure => directory,
+        group  => 'nobody',
+        mode   => '0640';
+      '/var/lib/munin/yum_updates.py':
+        source  => 'puppet:///modules/yum/munin/yum_updates.py',
+        group   => 0,
+        mode    => '0750';
+    } ~> exec{'yum_munin_updates_init':
       command     => '/var/lib/munin/yum_updates.py',
       refreshonly => true,
-    }
-
-    file{'/etc/cron.daily/z_munin_yum_updates.sh':
+    } -> file{'/etc/cron.daily/z_munin_yum_updates.sh':
       source  => 'puppet:///modules/yum/munin/munin_yum_updates.sh',
       require => File['/var/lib/munin/yum_updates.py'],
       owner   => root,
       group   => 0,
       mode    => '0755';
-    }
-
-    munin::plugin::deploy{'yum_updates':
+    } -> munin::plugin::deploy{'yum_updates':
       source => 'yum/munin/yum_updates',
     }
   } else {
