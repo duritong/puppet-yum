@@ -19,7 +19,7 @@ class yum::centos::puppet(
       baseurl       => "https://yum.puppetlabs.com/puppet/el/${release}/\$basearch",
       gpgkey        => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppet-release',
       gpgkey_source => 'puppet:///modules/yum/rpm-gpg/additional/RPM-GPG-KEY-puppet-release',
-      gpgkeyid      => 'EF8D349F',
+      gpgkeyid      => '9E61EF26',
       enabled       => 1,
       gpgcheck      => 1,
       priority      => 1,
