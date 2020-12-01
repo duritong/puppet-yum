@@ -9,7 +9,7 @@
 class yum::repos(
   $repos = {},
 ) {
-  extlib::resources_deep_merge($repos,lookup('yum::repos', { 'merge' => 'hash','default_value' => {}})).each |$repo,$vals| {
+  deep_merge($repos,lookup('yum::repos', { 'merge' => 'hash','default_value' => {}})).each |$repo,$vals| {
     yum::repo{
       $repo:
         * => $vals,

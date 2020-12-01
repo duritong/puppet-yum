@@ -32,7 +32,7 @@ class yum::centos::remi(
       priority      => 1,
     },
   }
-  extlib::resources_deep_merge($default_repos,$repos).each |$repo,$vals| {
+  deep_merge($default_repos,$repos).each |$repo,$vals| {
     yum::repo{
       $repo:
         * => $vals,
