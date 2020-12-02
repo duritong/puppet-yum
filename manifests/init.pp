@@ -38,4 +38,5 @@ class yum(
   if $autoupdate {
     include yum::autoupdate
   }
+  include yum::centos::disable_rhsmcertd
 }
