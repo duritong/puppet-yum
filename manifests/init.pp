@@ -27,7 +27,6 @@ class yum(
           'yum::prerequisites' ]:
     stage => $repo_stage,
   }
-  include yum::centos
   $repos = $yum::centos::repos
   class{'yum::repos':
     repos => $repos,
