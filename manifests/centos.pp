@@ -20,7 +20,7 @@ class yum::centos {
         gpgcheck       => 1,
         repo_gpgcheck  => 0,
         gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-Debug-${::operatingsystemmajrelease}",
-        manage_gpgkey  => false,
+        manage_gpgkey  => true,
         priority       => 1,
       },
       'updates' => {
