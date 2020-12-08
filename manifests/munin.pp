@@ -36,7 +36,7 @@ class yum::munin {
       source => 'yum/munin/dnf',
       config => 'group nobody'
     } -> systemd::timer{
-      'update-munin-dnf':
+      'update-munin-dnf.timer':
         timer_source   => 'puppet:///modules/yum/munin/dnf.timer',
         service_source => 'puppet:///modules/yum/munin/dnf.service',
         active         => true,
