@@ -10,9 +10,9 @@ class yum::munin {
         group  => 'nobody',
         mode   => '0640';
       '/var/lib/munin/yum_updates.py':
-        source  => 'puppet:///modules/yum/munin/yum_updates.py',
-        group   => 0,
-        mode    => '0750';
+        source => 'puppet:///modules/yum/munin/yum_updates.py',
+        group  => 0,
+        mode   => '0750';
     } ~> exec{'yum_munin_updates_init':
       command     => '/var/lib/munin/yum_updates.py',
       refreshonly => true,
@@ -34,7 +34,7 @@ class yum::munin {
         mode   => '0640',
     } -> munin::plugin::deploy{'dnf':
       source => 'yum/munin/dnf',
-      config => 'group nobody'
+      config => 'group nobody',
     } -> systemd::timer{
       'update-munin-dnf.timer':
         timer_source   => 'puppet:///modules/yum/munin/dnf.timer',
