@@ -10,16 +10,7 @@ ExecStart=/usr/share/munin/plugins/dnf update
 # security settings
 PrivateTmp=true
 
-ProtectSystem=full
-# to be migrated once in EL7
-# ProtectSystem=strict
-
-# not yet available
-# to be migrated once in EL7
-#PrivateUsers=true
-#ProtectKernelTunables=true
-#ProtectKernelModules=true
-#ProtectControlGroups=yes
-
-ReadOnlyDirectories=/
-ReadWriteDirectories=/var/lib/munin/plugin-state/dnf/
+PrivateUsers=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=yes

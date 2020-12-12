@@ -1,0 +1,14 @@
+module munin-dnf-update-service 1.0;
+
+require {
+	type init_t;
+	type unconfined_munin_plugin_exec_t;
+	type munin_plugin_state_t;
+	class file { create execute execute_no_trans ioctl open read write };
+	class dir add_name;
+}
+
+#============= init_t ==============
+allow init_t munin_plugin_state_t:dir add_name;
+allow init_t munin_plugin_state_t:file { create ioctl open write };
+allow init_t unconfined_munin_plugin_exec_t:file { execute execute_no_trans ioctl open read };
