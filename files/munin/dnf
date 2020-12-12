@@ -65,7 +65,7 @@ sub autoconf {
         print "no (Could not run dnf)\n";
     }
     elsif (! -r $statefile) {
-        print "no (Could not find statefile.  Please read 'munindoc yum')\n";
+        print "no (Could not find statefile.  Please read 'munindoc dnf')\n";
     }
     else {
         print "yes\n";
@@ -85,7 +85,7 @@ sub report {
 
     open my $state, '<', $statefile
     or die "Can't open $statefile for reading: $!
-Please read 'munindoc yum' to understand why if the file does not exist.\n";
+Please read 'munindoc dnf' to understand why if the file does not exist.\n";
 
     chomp(@packages = <$state>);
     close $state;
