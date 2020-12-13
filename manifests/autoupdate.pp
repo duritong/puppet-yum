@@ -7,11 +7,10 @@
 # $apply_updates::   yes|no - should updates be applied
 # $update_messages:: no|yes - should you be informed about updates
 #
-class yum::autoupdate(
+class yum::autoupdate (
   Enum['yes','no'] $apply_updates   = 'yes',
   Enum['yes','no'] $update_messages = 'no',
 ) {
-
   if versioncmp($facts['os']['release']['major'],'8') < 0 {
     # autoupdate
     package {
@@ -23,7 +22,7 @@ class yum::autoupdate(
         enable => true,
     }
 
-    file_line{
+    file_line {
       'enable_autoupdate':
         line    => "apply_updates = ${apply_updates}",
         match   => '^apply_updates',
@@ -41,14 +40,15 @@ class yum::autoupdate(
     package {
       'dnf-automatic':
         ensure => installed,
-    } -> file_line{
+    } -> file_line {
       'enable_autoupdate':
         line  => "apply_updates = ${apply_updates}",
         match => '^apply_updates',
         path  => '/etc/dnf/automatic.conf',
-    } ~> service{
+    } ~> service {
       'dnf-automatic.timer':
-        enable => true
+        enable => true,
+        status => running,
     }
   }
 }
