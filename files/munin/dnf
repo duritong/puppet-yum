@@ -31,14 +31,7 @@ GPLv2
 
 use strict;
 
-my $statefile = "";
-if( defined $ENV{MUNIN_PLUGSTATE} ) {
-  $statefile = "$ENV{MUNIN_PLUGSTATE}/dnf.state";
-}
-else {
-  $statefile = "/var/lib/munin/plugin-state/dnf/state";
-}
-
+my $statefile = "/var/lib/munin/plugin-state/dnf/state";
 
 sub update {
     if (-l $statefile) {
