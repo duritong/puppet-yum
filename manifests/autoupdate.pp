@@ -47,8 +47,8 @@ class yum::autoupdate (
         path  => '/etc/dnf/automatic.conf',
     } ~> service {
       'dnf-automatic.timer':
+        ensure => running,
         enable => true,
-        status => running,
     }
   }
 }
