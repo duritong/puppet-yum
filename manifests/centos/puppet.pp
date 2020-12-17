@@ -12,7 +12,7 @@ class yum::centos::puppet (
   file { '/etc/pki/rpm-gpg/GPG-KEY-puppet-20210817':
     source => 'puppet:///modules/yum/rpm-gpg/additional/RPM-GPG-KEY-puppet-release-20210817',
   } -> exec { 'validate gpg key':
-      command   => 'gpg --keyid-format 0xLONG /etc/pki/rpm-gpg/GPG-KEY-puppet-20210817 | grep -q ef8d349f',
+      command   => 'gpg --keyid-format 0xLONG /etc/pki/rpm-gpg/GPG-KEY-puppet-20210817 | grep -q 6F6B15509CF8E59E6E469F327F438280EF8D349F',
       logoutput => 'on_failure',
   } -> exec { 'import gpg key':
       command   => 'rpm --import /etc/pki/rpm-gpg/GPG-KEY-puppet-20210817',
