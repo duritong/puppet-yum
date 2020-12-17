@@ -6,10 +6,19 @@
 #
 # $repos:: {} - override options
 #
-class yum::centos::puppet(
+class yum::centos::puppet (
   $repos = {},
-){
-  package{'puppet-release':
+) {
+  file { '/etc/pki/rpm-gpg/GPG-KEY-puppet-20210817':
+    source => 'puppet:///modules/yum/rpm-gpg/additional/RPM-GPG-KEY-puppet-release-20210817',
+  } -> exec { 'validate gpg key':
+      command   => 'gpg --keyid-format 0xLONG /etc/pki/rpm-gpg/GPG-KEY-puppet-20210817 | grep -q ef8d349f',
+      logoutput => 'on_failure',
+  } -> exec { 'import gpg key':
+      command   => 'rpm --import /etc/pki/rpm-gpg/GPG-KEY-puppet-20210817',
+      unless    => 'rpm -q gpg-pubkey-`echo $(gpg --throw-keyids < /etc/pki/rpm-gpg/GPG-KEY-puppet-20210817) | cut --characters=11-18 | tr [A-Z] [a-z]`',
+      logoutput => 'on_failure',
+  } -> package { 'puppet-release':
     ensure => 'installed',
   }
   $release = $facts['os']['release']['major']
@@ -36,7 +45,7 @@ class yum::centos::puppet(
   }
   $all_repos = deep_merge($default_repos,$repos)
   $all_repos.each |$repo,$params| {
-    yum::repo{
+    yum::repo {
       $repo:
         * => $params,
     }
