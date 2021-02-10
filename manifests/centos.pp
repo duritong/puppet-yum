@@ -1,7 +1,7 @@
 # Install the basic repositories
 class yum::centos {
   if versioncmp($facts['os']['release']['major'],'8') < 0 {
-    $epel_suffix = "-${::operatingsystemmajrelease}"
+    $epel_suffix = "-${facts['os']['release']['major']}"
     $repos = {
       'base' => {
         descr          => 'CentOS-$releasever - Base',
@@ -9,7 +9,7 @@ class yum::centos {
         enabled        => 1,
         gpgcheck       => 1,
         repo_gpgcheck  => 1,
-        gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${::operatingsystemmajrelease}",
+        gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${facts['os']['release']['major']}",
         manage_gpgkey  => false,
         priority       => 1,
       },
@@ -19,7 +19,7 @@ class yum::centos {
         enabled        => 0,
         gpgcheck       => 1,
         repo_gpgcheck  => 0,
-        gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-Debug-${::operatingsystemmajrelease}",
+        gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-Debug-${facts['os']['release']['major']}",
         manage_gpgkey  => true,
         priority       => 1,
       },
@@ -29,7 +29,7 @@ class yum::centos {
         enabled        => 1,
         gpgcheck       => 1,
         repo_gpgcheck  => 1,
-        gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${::operatingsystemmajrelease}",
+        gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${facts['os']['release']['major']}",
         manage_gpgkey  => false,
         priority       => 1,
       },
@@ -39,7 +39,7 @@ class yum::centos {
         enabled        => 1,
         gpgcheck       => 1,
         repo_gpgcheck  => 1,
-        gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${::operatingsystemmajrelease}",
+        gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${facts['os']['release']['major']}",
         manage_gpgkey  => false,
         priority       => 1,
       },
@@ -49,11 +49,11 @@ class yum::centos {
         enabled        => 1,
         gpgcheck       => 1,
         repo_gpgcheck  => 1,
-        gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${::operatingsystemmajrelease}",
+        gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${facts['os']['release']['major']}",
         manage_gpgkey  => false,
         priority       => 2,
       },
-      "rpmforge-rhel${::operatingsystemmajrelease}" => {
+      "rpmforge-rhel${facts['os']['release']['major']}" => {
         descr          => 'RPMForge RHEL5 packages',
         baseurl        => 'http://wftp.tu-chemnitz.de/pub/linux/dag/redhat/el$releasever/en/$basearch/dag',
         enabled        => 1,
@@ -61,18 +61,18 @@ class yum::centos {
         gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag',
         priority       => 30,
       },
-      "centos${::operatingsystemmajrelease}-plus"   => {
+      "centos${facts['os']['release']['major']}-plus"   => {
         descr          => 'CentOS-$releasever - Plus',
         mirrorlist     => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus',
         enabled        => 1,
         gpgcheck       => 1,
         repo_gpgcheck  => 1,
-        gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${::operatingsystemmajrelease}",
+        gpgkey         => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${facts['os']['release']['major']}",
         priority       => 15,
       },
       'epel'           => {
         descr          => 'Extra Packages for Enterprise Linux $releasever - $basearch',
-        metalink       => 'https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink       => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=epel-7&arch=$basearch&infra=$infra&content=$contentdir',
         enabled        => 1,
         gpgcheck       => 1,
         failovermethod => 'priority',
@@ -81,7 +81,7 @@ class yum::centos {
       },
       'epel-debuginfo' => {
         descr          => 'Extra Packages for Enterprise Linux $releasever - $basearch - Debug',
-        metalink       => 'https://mirrors.fedoraproject.org/metalink?repo=epel-debug-7&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink       => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=epel-debug-7&arch=$basearch&infra=$infra&content=$contentdir',
         enabled        => 0,
         gpgcheck       => 1,
         failovermethod => 'priority',
@@ -90,7 +90,7 @@ class yum::centos {
       },
       'epel-source' => {
         descr          => 'Extra Packages for Enterprise Linux $releasever - $basearch - Source',
-        metalink       => 'https://mirrors.fedoraproject.org/metalink?repo=epel-source-7&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink       => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=epel-source-7&arch=$basearch&infra=$infra&content=$contentdir',
         enabled        => 0,
         gpgcheck       => 1,
         failovermethod => 'priority',
@@ -99,7 +99,7 @@ class yum::centos {
       },
       'epel-testing'   => {
         descr          => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch',
-        metalink       => 'https://mirrors.fedoraproject.org/metalink?repo=testing-epel7&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink       => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=testing-epel7&arch=$basearch&infra=$infra&content=$contentdir',
         enabled        => 0,
         gpgcheck       => 1,
         failovermethod => 'priority',
@@ -108,7 +108,7 @@ class yum::centos {
       },
       'epel-testing-debuginfo' => {
         descr          => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch - Debug',
-        metalink       => 'https://mirrors.fedoraproject.org/metalink?repo=testing-debug-epel7&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink       => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=testing-debug-epel7&arch=$basearch&infra=$infra&content=$contentdir',
         enabled        => 0,
         gpgcheck       => 1,
         failovermethod => 'priority',
@@ -117,7 +117,7 @@ class yum::centos {
       },
       'epel-testing-source' => {
         descr          => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch - Source',
-        metalink       => 'https://mirrors.fedoraproject.org/metalink?repo=testing-source-epel7&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink       => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=testing-source-epel7&arch=$basearch&infra=$infra&content=$contentdir',
         enabled        => 0,
         gpgcheck       => 1,
         failovermethod => priority,
@@ -240,7 +240,7 @@ class yum::centos {
       },
       'epel-modular'                   => {
         descr    => 'Extra Packages for Enterprise Linux Modular $releasever - $basearch',
-        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=epel-modular-$releasever&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=epel-modular-$releasever&arch=$basearch&infra=$infra&content=$contentdir',
         enabled  => 1,
         gpgcheck => 1,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8',
@@ -248,7 +248,7 @@ class yum::centos {
       },
       'epel-modular-debuginfo'         => {
         descr    => 'Extra Packages for Enterprise Linux Modular $releasever - $basearch - Debug',
-        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=epel-modular-debug-$releasever&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=epel-modular-debug-$releasever&arch=$basearch&infra=$infra&content=$contentdir',
         enabled  => 0,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8',
         gpgcheck => 1,
@@ -256,7 +256,7 @@ class yum::centos {
       },
       'epel-modular-source'            => {
         descr    => 'Extra Packages for Enterprise Linux Modular $releasever - $basearch - Source',
-        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=epel-modular-source-$releasever&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=epel-modular-source-$releasever&arch=$basearch&infra=$infra&content=$contentdir',
         enabled  => 0,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8',
         gpgcheck => 1,
@@ -264,7 +264,7 @@ class yum::centos {
       },
       'epel-playground'                => {
         descr    => 'Extra Packages for Enterprise Linux $releasever - Playground - $basearch',
-        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=playground-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=playground-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
         enabled  => 0,
         gpgcheck => 1,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8',
@@ -272,7 +272,7 @@ class yum::centos {
       },
       'epel-playground-debuginfo'      => {
         descr    => 'Extra Packages for Enterprise Linux $releasever - Playground - $basearch - Debug',
-        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=playground-debug-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=playground-debug-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
         enabled  => 0,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8',
         gpgcheck => 1,
@@ -280,7 +280,7 @@ class yum::centos {
       },
       'epel-playground-source'         => {
         descr    => 'Extra Packages for Enterprise Linux $releasever - Playground - $basearch - Source',
-        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=playground-source-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=playground-source-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
         enabled  => 0,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8',
         gpgcheck => 1,
@@ -288,7 +288,7 @@ class yum::centos {
       },
       'epel'                           => {
         descr    => 'Extra Packages for Enterprise Linux $releasever - $basearch',
-        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=epel-$releasever&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=epel-$releasever&arch=$basearch&infra=$infra&content=$contentdir',
         enabled  => 1,
         gpgcheck => 1,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8',
@@ -296,7 +296,7 @@ class yum::centos {
       },
       'epel-debuginfo'                 => {
         descr    => 'Extra Packages for Enterprise Linux $releasever - $basearch - Debug',
-        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=epel-debug-$releasever&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=epel-debug-$releasever&arch=$basearch&infra=$infra&content=$contentdir',
         enabled  => 0,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8',
         gpgcheck => 1,
@@ -304,7 +304,7 @@ class yum::centos {
       },
       'epel-source'                    => {
         descr    => 'Extra Packages for Enterprise Linux $releasever - $basearch - Source',
-        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=epel-source-$releasever&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=epel-source-$releasever&arch=$basearch&infra=$infra&content=$contentdir',
         enabled  => 0,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8',
         gpgcheck => 1,
@@ -312,25 +312,23 @@ class yum::centos {
       },
       'epel-testing-modular'           => {
         descr    => 'Extra Packages for Enterprise Linux Modular $releasever - Testing - $basearch',
-        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=testing-modular-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=testing-modular-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
         enabled  => 0,
         gpgcheck => 1,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8',
         priority => 16,
-
       },
       'epel-testing-modular-debuginfo' => {
         descr    => 'Extra Packages for Enterprise Linux Modular $releasever - Testing - $basearch - Debug',
-        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=testing-modular-debug-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=testing-modular-debug-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
         enabled  => 0,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8',
         gpgcheck => 1,
         priority => 16,
-
       },
       'epel-testing-modular-source'    => {
         descr    => 'Extra Packages for Enterprise Linux Modular $releasever - Testing - $basearch - Source',
-        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=testing-modular-source-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=testing-modular-source-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
         enabled  => 0,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8',
         gpgcheck => 1,
@@ -338,7 +336,7 @@ class yum::centos {
       },
       'epel-testing'                   => {
         descr    => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch',
-        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=testing-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=testing-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
         enabled  => 0,
         gpgcheck => 1,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8',
@@ -346,16 +344,15 @@ class yum::centos {
       },
       'epel-testing-debuginfo'         => {
         descr    => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch - Debug',
-        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=testing-debug-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=testing-debug-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
         enabled  => 0,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8',
         gpgcheck => 1,
         priority => 16,
-
       },
       'epel-testing-source'            => {
         descr    => 'Extra Packages for Enterprise Linux $releasever - Testing - $basearch - Source',
-        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=testing-source-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?protocol=https&repo=testing-source-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir',
         enabled  => 0,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8',
         gpgcheck => 1,
