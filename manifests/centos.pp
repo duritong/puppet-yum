@@ -455,12 +455,13 @@ class yum::centos {
         priority   => 30,
       },
     }
-    Yum::Repo<| |> -> package { [
+    package { [
       'epel-release',
       'epel-next-release',
       'rpmfusion-free-release',
       'rpmfusion-nonfree-release',]:
-      ensure => installed,
+      ensure  => installed,
+      require => Yum::Repo['epel','rpmfusion-free-updates','rpmfusion-nonfree-updates'],
     }
   }
 }
