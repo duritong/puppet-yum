@@ -16,7 +16,7 @@ class yum::centos::remi (
   }
   $keyid = $release ? {
     '7' => '00F97F56',
-    '8' => '555097595F11735A',
+    '8' => '5F11735A',
   }
 
   $default_repos = {
