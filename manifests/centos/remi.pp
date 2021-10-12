@@ -6,9 +6,9 @@
 #
 # $repos:: {} - override options
 #
-class yum::centos::remi(
+class yum::centos::remi (
   $repos = {},
-){
+) {
   $release = $facts['os']['release']['major']
   $mirrorlist = versioncmp($release, '8') ? {
     -1      => "http://cdn.remirepo.net/enterprise/${release}/safe/mirror",
@@ -24,7 +24,7 @@ class yum::centos::remi(
       descr         => "Safe Remi's RPM repository for Enterprise Linux ${release} - \$basearch",
       mirrorlist    => $mirrorlist,
       gpgkey        => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi',
-      gpgkey_source => "puppet:///modules/yum/rpm-gpg/additional/RPM-GPG-KEY-remi.el$release",
+      gpgkey_source => "puppet:///modules/yum/rpm-gpg/additional/RPM-GPG-KEY-remi.el${release}",
       enabled       => 1,
       gpgkeyid      => $keyid,
       gpgcheck      => 1,
@@ -34,7 +34,7 @@ class yum::centos::remi(
       descr         => "Safe Remi's RPM repository for Enterprise Linux ${release} - \$basearch - debuginfo",
       baseurl       => "http://rpms.remirepo.net/enterprise/${release}/debug-remi/\$basearch/",
       gpgkey        => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi',
-      gpgkey_source => "puppet:///modules/yum/rpm-gpg/additional/RPM-GPG-KEY-remi.el$release",
+      gpgkey_source => "puppet:///modules/yum/rpm-gpg/additional/RPM-GPG-KEY-remi.el${release}",
       manage_gpgkey => false,
       enabled       => 0,
       gpgcheck      => 1,
@@ -42,7 +42,7 @@ class yum::centos::remi(
     },
   }
   deep_merge($default_repos,$repos).each |$repo,$vals| {
-    yum::repo{
+    yum::repo {
       $repo:
         * => $vals,
     }
