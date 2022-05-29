@@ -53,14 +53,6 @@ class yum::centos {
         manage_gpgkey  => false,
         priority       => 2,
       },
-      "rpmforge-rhel${facts['os']['release']['major']}" => {
-        descr          => 'RPMForge RHEL5 packages',
-        baseurl        => 'http://wftp.tu-chemnitz.de/pub/linux/dag/redhat/el$releasever/en/$basearch/dag',
-        enabled        => 1,
-        gpgcheck       => 1,
-        gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag',
-        priority       => 30,
-      },
       "centos${facts['os']['release']['major']}-plus"   => {
         descr          => 'CentOS-$releasever - Plus',
         mirrorlist     => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus',
