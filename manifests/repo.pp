@@ -95,9 +95,11 @@ define yum::repo (
     if $repo_gpgcheck == 1 and $enabled == 1 {
       if versioncmp($facts['os']['release']['major'],'8') < 0 {
         $makecache_cmd = "yum -q makecache fast -y --disablerepo='*' --enablerepo=${name}"
+        $deletecache_cmd = "rm -rf /var/lib/yum/repos/${facts['os']['architecture']}/${facts['os']['release']['major']}/${name}"
         $test_cmd = "test -f /var/lib/yum/repos/${facts['os']['architecture']}/${facts['os']['release']['major']}/${name}/gpgdir-ro/pubring.gpg"
       } else {
         $makecache_cmd = "dnf -q makecache -y --disablerepo='*' --enablerepo=${name}"
+        $deletecache_cmd = "rm -rf /var/cache/dnf/${name}-*/pubring"
         $test_cmd = "find /var/cache/dnf/ -maxdepth 2 -type d -regex '.*/${name}-[a-z0-9]*/pubring' | grep -q pubring"
       }
       exec{"import_yumrepo_gpgkey_${name}":
@@ -108,7 +110,7 @@ define yum::repo (
       if ($gpgkey != 'absent') and ($gpgkey =~ /^file:\//) and $manage_gpgkey {
         exec{
           "clean-gpg-cache-${name}":
-            command     => "rm -rf /var/lib/yum/repos/${facts['os']['architecture']}/${facts['os']['release']['major']}/${name}",
+            command     => $deletecache_cmd,
             refreshonly => true,
             subscribe   => Exec["rpm --import /etc/pki/rpm-gpg/${gpg_key_file}"],
         } -> Exec["import_yumrepo_gpgkey_${name}"]
