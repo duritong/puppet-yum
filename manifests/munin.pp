@@ -28,7 +28,7 @@ class yum::munin {
   } else {
     selinux::policy{
       'munin-dnf-update-service':
-        te_source => "puppet:///modules/yum/munin/selinux/munin-dnf-update-service.te",
+        te_source => 'puppet:///modules/yum/munin/selinux/munin-dnf-update-service.te',
         fc_file   => false,
     } -> file{
       '/var/lib/munin-node/plugin-state/dnf':
