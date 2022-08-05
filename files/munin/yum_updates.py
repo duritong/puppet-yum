@@ -107,6 +107,6 @@ if useyumlib:
 else:
     count = shell_out()
 
-f=open('/var/lib/munin-none/plugin-state/yum/update.state','w')
+f=open('/var/lib/munin-node/plugin-state/yum/update.state','w')
 f.write(str(count))
 f.close()
