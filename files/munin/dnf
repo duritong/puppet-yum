@@ -31,7 +31,7 @@ GPLv2
 
 use strict;
 
-my $statefile = "/var/lib/munin/plugin-state/dnf/state";
+my $statefile = "/var/lib/munin-node/plugin-state/dnf/state";
 
 sub update {
     if (-l $statefile) {
