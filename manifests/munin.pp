@@ -5,7 +5,7 @@ class yum::munin {
       default:
         require => Package['munin-node'],
         owner   => root;
-      '/var/lib/munin/plugin-state/yum':
+      '/var/lib/munin-node/plugin-state/yum':
         ensure => directory,
         group  => 'nobody',
         mode   => '0640';
@@ -31,7 +31,7 @@ class yum::munin {
         te_source => "puppet:///modules/yum/munin/selinux/munin-dnf-update-service.te",
         fc_file   => false,
     } -> file{
-      '/var/lib/munin/plugin-state/dnf':
+      '/var/lib/munin-node/plugin-state/dnf':
         ensure => directory,
         owner  => 'root',
         group  => 'nobody',
