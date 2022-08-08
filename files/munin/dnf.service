@@ -5,7 +5,7 @@ OnFailure=status_email_root@%n.service
 
 [Service]
 Group=nobody
-ExecStart=/usr/share/munin-node/plugins/dnf update
+ExecStart=/usr/share/munin/plugins/dnf update
 
 # security settings
 PrivateTmp=true
