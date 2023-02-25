@@ -761,7 +761,7 @@ class yum::centos {
       },
       'rpmfusion-free-updates' => {
         descr         => 'RPM Fusion for EL 9 - Free - Updates',
-        metalink      => 'http://mirrors.rpmfusion.org/metalink?repo=free-el-updates-released-9&arch=$basearch',
+        metalink      => 'https://mirrors.rpmfusion.org/metalink?repo=free-el-updates-released-9&arch=$basearch',
         enabled       =>1,
         gpgcheck      =>1,
         repo_gpgcheck =>0,
@@ -770,7 +770,7 @@ class yum::centos {
       },
       'rpmfusion-free-updates-debuginfo' => {
         descr         => 'RPM Fusion for EL 9 - Free - Updates Debug',
-        metalink      => 'http://mirrors.rpmfusion.org/metalink?repo=free-el-updates-released-debug-9&arch=$basearch',
+        metalink      => 'https://mirrors.rpmfusion.org/metalink?repo=free-el-updates-released-debug-9&arch=$basearch',
         enabled       => 0,
         #type=rpm-md
         gpgcheck      => 1,
@@ -779,7 +779,7 @@ class yum::centos {
       },
       'rpmfusion-free-updates-source' => {
         descr         => 'RPM Fusion for EL 9 - Free - Updates Source',
-        metalink      => 'http://mirrors.rpmfusion.org/metalink?repo=free-el-updates-released-source-9&arch=$basearch',
+        metalink      => 'https://mirrors.rpmfusion.org/metalink?repo=free-el-updates-released-source-9&arch=$basearch',
         enabled       => 0,
         #type=rpm-md
         gpgcheck      => 1,
@@ -788,7 +788,7 @@ class yum::centos {
       },
       'rpmfusion-free-updates-testing' => {
         descr         => 'RPM Fusion for EL 9 - Free - Test Updates',
-        metalink      => 'http://mirrors.rpmfusion.org/metalink?repo=free-el-updates-testing-9&arch=$basearch',
+        metalink      => 'https://mirrors.rpmfusion.org/metalink?repo=free-el-updates-testing-9&arch=$basearch',
         enabled       => 0,
         #type=rpm-md
         gpgcheck      => 1,
@@ -797,7 +797,7 @@ class yum::centos {
       },
       'rpmfusion-free-updates-testing-debuginfo' => {
         descr         => 'RPM Fusion for EL 9 - Free - Test Updates Debug',
-        metalink      => 'http://mirrors.rpmfusion.org/metalink?repo=free-el-updates-testing-debug-9&arch=$basearch',
+        metalink      => 'https://mirrors.rpmfusion.org/metalink?repo=free-el-updates-testing-debug-9&arch=$basearch',
         enabled       => 0,
         #type=rpm-md
         gpgcheck      => 1,
@@ -806,7 +806,7 @@ class yum::centos {
       },
       'rpmfusion-free-updates-testing-source' => {
         descr         => 'RPM Fusion for EL 9 - Free - Test Updates Source',
-        metalink      => 'http://mirrors.rpmfusion.org/metalink?repo=free-el-updates-testing-source-9&arch=$basearch',
+        metalink      => 'https://mirrors.rpmfusion.org/metalink?repo=free-el-updates-testing-source-9&arch=$basearch',
         enabled       => 0,
         #type=rpm-md
         gpgcheck      => 1,
@@ -815,7 +815,7 @@ class yum::centos {
       },
       'rpmfusion-nonfree-updates' => {
         descr         => 'RPM Fusion for EL 9 - Nonfree - Updates',
-        metalink      => 'http://mirrors.rpmfusion.org/metalink?repo=nonfree-el-updates-released-9&arch=$basearch',
+        metalink      => 'https://mirrors.rpmfusion.org/metalink?repo=nonfree-el-updates-released-9&arch=$basearch',
         enabled       => 1,
         #type=rpm-md
         gpgcheck      => 1,
@@ -824,7 +824,7 @@ class yum::centos {
       },
       'rpmfusion-nonfree-updates-debuginfo' => {
         descr         => 'RPM Fusion for EL 9 - Nonfree - Updates Debug',
-        metalink      => 'http://mirrors.rpmfusion.org/metalink?repo=nonfree-el-updates-released-debug-9&arch=$basearch',
+        metalink      => 'https://mirrors.rpmfusion.org/metalink?repo=nonfree-el-updates-released-debug-9&arch=$basearch',
         enabled       => 0,
         #type=rpm-md
         gpgcheck      => 1,
@@ -833,7 +833,7 @@ class yum::centos {
       },
       'rpmfusion-nonfree-updates-source' => {
         descr         => 'RPM Fusion for EL 9 - Nonfree - Updates Source',
-        metalink      => 'http://mirrors.rpmfusion.org/metalink?repo=nonfree-el-updates-released-source-9&arch=$basearch',
+        metalink      => 'https://mirrors.rpmfusion.org/metalink?repo=nonfree-el-updates-released-source-9&arch=$basearch',
         enabled       => 0,
         #type=rpm-md
         gpgcheck      => 1,
@@ -842,7 +842,7 @@ class yum::centos {
       },
       'rpmfusion-nonfree-updates-testing' => {
         descr         => 'RPM Fusion for EL 9 - Nonfree - Test Updates',
-        metalink      => 'http://mirrors.rpmfusion.org/metalink?repo=nonfree-el-updates-testing-9&arch=$basearch',
+        metalink      => 'https://mirrors.rpmfusion.org/metalink?repo=nonfree-el-updates-testing-9&arch=$basearch',
         enabled       => 0,
         #type=rpm-md
         gpgcheck      => 1,
@@ -851,7 +851,7 @@ class yum::centos {
       },
       'rpmfusion-nonfree-updates-testing-debuginfo' => {
         descr         => 'RPM Fusion for EL 9 - Nonfree - Test Updates Debug',
-        metalink      => 'http://mirrors.rpmfusion.org/metalink?repo=nonfree-el-updates-testing-debug-9&arch=$basearch',
+        metalink      => 'https://mirrors.rpmfusion.org/metalink?repo=nonfree-el-updates-testing-debug-9&arch=$basearch',
         enabled       => 0,
         #type=rpm-md
         gpgcheck      => 1,
@@ -860,7 +860,7 @@ class yum::centos {
       },
       'rpmfusion-nonfree-updates-testing-source' => {
         descr         => 'RPM Fusion for EL 9 - Nonfree - Test Updates Source',
-        metalink      => 'http://mirrors.rpmfusion.org/metalink?repo=nonfree-el-updates-testing-source-9&arch=$basearch',
+        metalink      => 'https://mirrors.rpmfusion.org/metalink?repo=nonfree-el-updates-testing-source-9&arch=$basearch',
         enabled       => 0,
         #type=rpm-md
         gpgcheck      => 1,
