@@ -759,6 +759,26 @@ class yum::centos {
         gpgcheck => 1,
         priority => 16,
       },
+      'epel-cisco-openh264' => {
+        descr    => 'Extra Packages for Enterprise Linux $releasever openh264 (From Cisco) - $basearch',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=epel-cisco-openh264-$releasever&arch=$basearch',
+        enabled  => 1,
+        gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9',
+      },
+      'epel-cisco-openh264-debuginfo' => {
+        descr    => 'Extra Packages for Enterprise Linux $releasever openh264 (From Cisco) - $basearch - Debug',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=epel-cisco-openh264-debug-$releasever&arch=$basearch',
+        enabled  => 0,
+        gpgcheck => 1,
+        gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9',
+      },
+      'epel-cisco-openh264-source' => {
+        descr    => 'Extra Packages for Enterprise Linux $releasever openh264 (From Cisco) - $basearch - Source',
+        metalink => 'https://mirrors.fedoraproject.org/metalink?repo=epel-cisco-openh264-source-$releasever&arch=$basearch',
+        enabled  => 0,
+        gpgcheck => 1,
+        gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9',
+      },
       'rpmfusion-free-updates' => {
         descr         => 'RPM Fusion for EL 9 - Free - Updates',
         metalink      => 'https://mirrors.rpmfusion.org/metalink?repo=free-el-updates-released-9&arch=$basearch',
